@@ -5,8 +5,14 @@ import Link from 'next/link';
 import { navLinks } from '~/constants';
 import { styles } from "~/components/layout/styles";
 import Container from "~/components/layout/Containers";
+import { useRouter } from "next/router";
 
 const Navbar: React.FC = () => {
+	const router = useRouter()
+	const linkColour = (name:string) => {
+		return  router.pathname === name ? 'text-td-grn-3' : 'text-white'
+	}
+
 	return (
 		<Container>
 			<nav
@@ -21,7 +27,7 @@ const Navbar: React.FC = () => {
 						<Link
 							href={`/${nav.id}`}
 							key={nav.id}
-							className='mr-8 cursor-pointer text-lg text-white'>
+							className={`mr-8 cursor-pointer text-lg ${linkColour(`/${nav.id}`)}`}>
 							{nav.title}
 						</Link>
 					))}
