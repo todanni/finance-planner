@@ -54,8 +54,8 @@ You can check out the [create-t3-app GitHub repository](https://github.com/t3-os
 
 To get a local copy up and running follow these simple steps.
 ```shell
-git clone git@github.com:todanni/finance-planner.git
-cd finance-planner
+git clone git@github.com:todanni/finance-plan.git
+cd finance-plan
 npm install
 npm run dev
 ```

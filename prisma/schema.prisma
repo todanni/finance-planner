@@ -20,12 +20,12 @@ model Account {
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?  @db.Text
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -34,6 +34,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model User {
@@ -44,6 +46,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  balances      Balance[]
+  payments      Payment[]
 }
 
 model VerificationToken {
@@ -55,13 +59,65 @@ model VerificationToken {
 }
 
 model Balance {
-  id     String  @id @default(cuid())
-  userId String
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  // Inerited values from Data 
+
+  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
+  subCategoryId Int
+
+  name   String
   amount Decimal
+
+  // Unique values for a Balances
+  startDate    DateTime?
+  endDate      DateTime?
+  interestRate Decimal?
+
+  @@index([subCategoryId])
 }
 
 model Payment {
-  id     String  @id @default(cuid())
-  userId String
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
+  subCategoryId Int
+
+  name   String
   amount Decimal
+
+  // Unique values for Payments
+  recurring    Boolean
+  paidOn       DateTime?
+  nextPaidOn   DateTime?
+  interestRate Decimal?
+
+  @@index([subCategoryId])
+}
+
+model Category {
+  id            Int           @id @default(autoincrement())
+  name          String
+  subCategories SubCategory[]
+}
+
+model SubCategory {
+  id         Int      @id @default(autoincrement())
+  name       String
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  payments Payment[]
+  balances Balance[]
+
+  @@index([categoryId])
 }
