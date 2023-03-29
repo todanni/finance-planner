@@ -3,17 +3,17 @@ import Layout from "~/components/layout";
 import Hero from "~/components/home/Hero";
 import Container from "~/components/layout/Containers";
 
-const Home: NextPage = () => {
+const Plan: NextPage = () => {
   return (
     <>
-      <Layout title='Finance Planner | ToDanni'>
+      <Layout title='Plan | ToDanni Finance Planner'>
         <Container>
-          <Hero/>
+          <h1>Plan</h1>
         </Container>
       </Layout>
     </>
   );
 };
 
-export default Home;
+export default Plan;
 
