@@ -17,12 +17,20 @@ const navLinks = [
 		title: 'Home',
 	},
 	{
-		id: 'about',
-		title: 'About',
+		id: 'budget',
+		title: 'Budget',
+	},
+	{
+		id: 'plan',
+		title: 'Plan',
 	},
 	{
 		id: 'blog',
 		title: 'Blog',
+	},
+	{
+		id: 'about',
+		title: 'About',
 	},
 ];
 

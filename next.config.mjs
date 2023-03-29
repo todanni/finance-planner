@@ -7,5 +7,16 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  redirects : async() => {
+    return [
+      {
+        source: '/home',
+        destination: '/',
+        permanent: true,
+      },
+    ]
+  },
 };
+
+
 export default config;
