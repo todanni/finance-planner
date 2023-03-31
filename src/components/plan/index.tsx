@@ -1,20 +1,21 @@
 import React from "react";
+import { api } from "~/utils/api";
+import { useSession } from 'next-auth/react';
+import Income from "./income";
+
 
 const PlanSection: React.FC = () => {
-  const createCategory = () => {
-
-  }
+const { data: sessionData } = useSession();
 
   return (
     <section id='plan' className='flex flex-col justify-center items-center mt-5'>
-    {/* Start by checking local storage for any saved data */}
-    {/* If no data is saved, check if the user is logged in */}
-    {/* If the user isn't logged in, ask if they need to */}
-    {/* Display the path to generating a plan */}
-      <button onClick={}></button>
-
+      { sessionData && (
+      <div>
+        <Income userId={sessionData.user.id}/>
+      </div>
+      )}
     </section>
-  );
+  ) 
 };
 
 export default PlanSection;

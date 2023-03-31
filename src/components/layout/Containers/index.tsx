@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+import React, { type ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;

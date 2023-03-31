@@ -27,6 +27,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "superjson": "1.12.2",
+    "tailwind-datepicker-react": "^1.2.3",
     "zod": "^3.21.4"
   },
   "devDependencies": {
@@ -42,9 +43,10 @@
     "eslint-config-next": "^13.2.4",
     "eslint-plugin-react": "^7.32.2",
     "postcss": "^8.4.21",
-    "prettier": "^2.8.6",
+    "prettier": "2.8.7",
     "prettier-plugin-tailwindcss": "^0.2.5",
     "prisma": "^4.11.0",
+    "react-tailwindcss-datepicker": "^1.5.1",
     "tailwindcss": "^3.2.7",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.2"
