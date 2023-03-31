@@ -3,6 +3,7 @@ import IncomeCategorySelect from "./IncomeCategorySelect";
 import DatePick from "../../forms/DatePicker";
 import LabeledInput from "../../forms/LabeledInput";
 import ToggleSelect from "../../forms/ToggleSelect";
+import RepeatSelect from "./RepeatSelect";
 
 const Form = () => {
   return (
@@ -22,7 +23,7 @@ const Form = () => {
           defaultOption={"Single"}
           secondaryOption={"Reoccurring"}
         />
-        <DatePick label="When will you receive it again?" />
+        <RepeatSelect />
       </div>
       <button
         type="submit"
@@ -35,3 +36,9 @@ const Form = () => {
 };
 
 export default Form;
+
+// repeats: boolean
+// repeatsIn: Number
+
+// paidOn = new Date(startDate.getTime() + (1000 * 60 * 60 * 24))
+// one day ->                              sec * min * hour * day
