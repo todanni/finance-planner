@@ -15,6 +15,22 @@ export const paymentsRouter = createTRPCRouter({
     });
   }),
 
+  create: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.payment.create({
+      data: {
+        createdAt: "",
+        name: "",
+        amount: "",
+        recurring: true,
+        paidOn: "",
+        nextPaidOn: "",
+        interestRate: 0.1,
+        userId: "",
+        subCategoryId: 1,
+      },
+    });
+  }),
+
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),

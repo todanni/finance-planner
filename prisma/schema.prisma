@@ -8,7 +8,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-// Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -20,7 +19,7 @@ model Account {
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?  @db.Text
+  id_token          String? @db.Text
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -59,46 +58,34 @@ model VerificationToken {
 }
 
 model Balance {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @unique
-
-  // Inerited values from Data 
-
-  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
+  id            Int         @id @default(autoincrement())
+  userId        String      @unique
+  amount        Decimal
+  createdAt     DateTime    @default(now())
+  endDate       DateTime?
+  interestRate  Decimal?
+  name          String
+  startDate     DateTime?
   subCategoryId Int
-
-  name   String
-  amount Decimal
-
-  // Unique values for a Balances
-  startDate    DateTime?
-  endDate      DateTime?
-  interestRate Decimal?
+  user          User        @relation(fields: [userId], references: [id])
+  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
 
   @@index([subCategoryId])
 }
 
 model Payment {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @unique
-
-  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
+  id            Int         @id @default(autoincrement())
+  userId        String      @unique
+  amount        Decimal
+  createdAt     DateTime    @default(now())
+  interestRate  Decimal?
+  name          String
+  nextPaidOn    DateTime?
+  paidOn        DateTime?
+  recurring     Boolean
   subCategoryId Int
-
-  name   String
-  amount Decimal
-
-  // Unique values for Payments
-  recurring    Boolean
-  paidOn       DateTime?
-  nextPaidOn   DateTime?
-  interestRate Decimal?
+  user          User        @relation(fields: [userId], references: [id])
+  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
 
   @@index([subCategoryId])
 }
@@ -110,14 +97,12 @@ model Category {
 }
 
 model SubCategory {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   name       String
-
-  category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
-
-  payments Payment[]
-  balances Balance[]
+  category   Category  @relation(fields: [categoryId], references: [id])
+  payments   Payment[]
+  balances   Balance[]
 
   @@index([categoryId])
 }

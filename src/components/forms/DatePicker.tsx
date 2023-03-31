@@ -28,8 +28,11 @@ const options = {
   defaultDate: new Date("2023-03-31"),
   language: "en",
 };
+type Props = {
+  label: string;
+};
 
-const DatePick = () => {
+const DatePick = ({ label }: Props) => {
   const [show, setShow] = useState<boolean>(false);
   const handleChange = (selectedDate: Date) => {
     console.log(selectedDate);
@@ -40,7 +43,7 @@ const DatePick = () => {
   return (
     <div>
       <label className="mb-2 block text-sm font-medium text-white">
-        When did you receive this?
+        {label}
       </label>
       <Datepicker
         options={options}
