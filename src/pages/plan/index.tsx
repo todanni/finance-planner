@@ -10,7 +10,7 @@ const Plan: NextPage = () => {
         <div className={`flex justify-between`}>
           <div className="w-full  xl:max-w-[1280px]">
             <PlanSection />
-            <IncomeTable someProp=""></IncomeTable>
+            {/* <IncomeTable someProp=""></IncomeTable> */}
           </div>
         </div>
       </Layout>
