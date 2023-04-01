@@ -40,6 +40,8 @@ const RepeatSelect = () => {
       <Select
         options={repeatOptions}
         label="How often does it repeat?"
+        name={"repeat"}
+        defaultValue={""}
       ></Select>
     </div>
   );

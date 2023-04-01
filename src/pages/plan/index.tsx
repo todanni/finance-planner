@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import Layout from "~/components/layout";
 import PlanSection from "~/components/plan";
-import IncomeTable from "~/components/plan/income/IncomeTable";
 
 const Plan: NextPage = () => {
   return (

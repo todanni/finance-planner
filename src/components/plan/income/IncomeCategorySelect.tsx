@@ -13,7 +13,12 @@ const IncomeCategorySelect = () => {
 
   return (
     <div>
-      <Select options={selectOptions} label="Select income type"></Select>
+      <Select
+        options={selectOptions}
+        label="Select income type"
+        name="category"
+        defaultValue="Salary"
+      />
     </div>
   );
 };
