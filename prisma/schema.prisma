@@ -74,18 +74,21 @@ model Balance {
 }
 
 model Payment {
-  id            Int         @id @default(autoincrement())
-  userId        String      @unique
-  amount        Decimal
-  createdAt     DateTime    @default(now())
-  interestRate  Decimal?
-  name          String
-  nextPaidOn    DateTime?
-  paidOn        DateTime?
-  recurring     Boolean
+  id        Int      @id @default(autoincrement())
+  userId    String   @unique
+  amount    Decimal
+  createdAt DateTime @default(now())
+
+  name String
+
+  startDate DateTime?
+  endDate   DateTime?
+  repeats   Boolean
+  repeatsIn Int
+
   subCategoryId Int
-  user          User        @relation(fields: [userId], references: [id])
   subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
+  user          User        @relation(fields: [userId], references: [id])
 
   @@index([subCategoryId])
 }

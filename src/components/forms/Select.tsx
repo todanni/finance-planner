@@ -14,8 +14,6 @@ type Props = {
 };
 
 const Select = ({ options, name, label, defaultValue }: Props) => {
-  const { register } = useFormContext();
-
   return (
     <div>
       <label className="mb-2 block text-sm font-medium text-white">
@@ -24,7 +22,6 @@ const Select = ({ options, name, label, defaultValue }: Props) => {
       <select
         id={name}
         defaultValue={defaultValue}
-        {...register(name)}
         className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900"
       >
         {options?.map((opt, index) => (
