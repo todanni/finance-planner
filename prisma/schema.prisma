@@ -2,6 +2,16 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator trpc {
+  provider          = "prisma-trpc-generator"
+  output = "../src/server/api/routers"
+  withZod           = true
+  withMiddleware    = false
+  withShield        = false
+  contextPath       = "../src/server/api/trpc"
+  generateModelActions = "count,create,delete,findMany,update"
+}
+
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
