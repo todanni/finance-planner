@@ -1,12 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createTRPCRouter } from "~/server/api/trpc";
-import { paymentsRouter } from "~/server/api/routers/payments";
-import { categoriesRouter } from "./routers/categories";
-import { subCategoriesRouter } from "./routers/subCategories";
+import { balancesRouter } from "./routers/Balance.router";
+import { categoriesRouter } from "./routers/Category.router";
+import { paymentsRouter } from "./routers/Payment.router";
+import { subcategoriesRouter } from "./routers/SubCategory.router";
+import { usersRouter } from "./routers/User.router";
 
 export const appRouter = createTRPCRouter({
+  user: usersRouter,
+  balance: balancesRouter,
   payment: paymentsRouter,
   category: categoriesRouter,
-  subCategory: subCategoriesRouter,
+  subcategory: subcategoriesRouter,
 });
 
 export type AppRouter = typeof appRouter;
