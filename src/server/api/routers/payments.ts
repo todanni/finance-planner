@@ -1,37 +1,56 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 import {
-  createTRPCRouter,
-  publicProcedure,
-  protectedProcedure,
-} from "~/server/api/trpc";
+	createTRPCRouter,
+	publicProcedure,
+	protectedProcedure,
+} from '~/server/api/trpc';
 
 export const paymentsRouter = createTRPCRouter({
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.payment.findMany({
-      where: {
-        userId: ctx.session?.user.id,
-      },
-    });
-  }),
+	listAll: publicProcedure.query(({ ctx }) => {
+		return ctx.prisma.payment.findMany({
+			where: {
+				userId: ctx.session?.user.id,
+			},
+		});
+	}),
 
-  create: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.payment.create({
-      data: {
-        createdAt: "",
-        name: "",
-        amount: "",
-        recurring: true,
-        paidOn: "",
-        nextPaidOn: "",
-        interestRate: 0.1,
-        userId: "",
-        subCategoryId: 1,
-      },
-    });
-  }),
+	listByCategory: publicProcedure.query(({ ctx }) => {
+		return ctx.prisma.payment.findMany({
+			where: {
+				userId: ctx.session?.user.id,
+			},
+		});
+	}),
 
-  getSecretMessage: protectedProcedure.query(() => {
-    return "you can now see this secret message!";
-  }),
+	add: protectedProcedure
+		.input(
+			z.object({
+				name: z.string(),
+				amount: z.number(),
+				endDate: z.date().optional(),
+				startDate: z.date().optional(),
+				repeats: z.boolean(),
+				repeatsIn: z.number().optional(),
+				subCategory: z.object({
+					connect: z.object({
+						id: z.number().optional(),
+					}),
+				}),
+				user: z.object({
+					connect: z.object({
+						id: z.string().optional(),
+					}),
+				}),
+			}),
+		)
+		.mutation(async ({ ctx, input }) => {
+			input.user.connect.id = ctx.session.user.id;
+
+			const payment = await ctx.prisma.payment.create({
+				data: input,
+			});
+
+			return payment;
+		}),
 });
