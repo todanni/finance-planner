@@ -2,22 +2,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator trpc {
-  provider          = "prisma-trpc-generator"
-  output = "../src/server/api/routers"
-  withZod           = true
-  withMiddleware    = false
-  withShield        = false
-  contextPath       = "../src/server/api/trpc"
-  generateModelActions = "count,create,delete,findMany,update"
-}
-
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
-/// @@Gen.model(hide: true)
+
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -37,7 +27,6 @@ model Account {
   @@index([userId])
 }
 
-/// @@Gen.model(hide: true)
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
@@ -60,7 +49,6 @@ model User {
   payments      Payment[]
 }
 
-/// @@Gen.model(hide: true)
 model VerificationToken {
   identifier String
   token      String   @unique
