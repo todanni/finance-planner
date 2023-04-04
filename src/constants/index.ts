@@ -11,6 +11,8 @@ const meta = {
 	image: 'https://imgur.com/NAeYmRI',
 };
 
+const day = 1000 * 60 * 60 * 24;
+
 const navLinks = [
 	{
 		id: 'home',
@@ -123,4 +125,4 @@ const footerLinks = [
 	},
 ];
 
-export { footerLinks, socialMedia, navLinks, features, meta };
+export { footerLinks, socialMedia, navLinks, features, meta, day };

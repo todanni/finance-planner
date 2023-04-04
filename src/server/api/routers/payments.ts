@@ -30,8 +30,9 @@ export const paymentsRouter = createTRPCRouter({
 				amount: z.number(),
 				endDate: z.date().optional(),
 				startDate: z.date().optional(),
+				isNet: z.boolean(),
 				repeats: z.boolean(),
-				repeatsIn: z.number().optional(),
+				repeatsIn: z.number().default(0),
 				subCategory: z.object({
 					connect: z.object({
 						id: z.number().optional(),
@@ -46,6 +47,8 @@ export const paymentsRouter = createTRPCRouter({
 		)
 		.mutation(async ({ ctx, input }) => {
 			input.user.connect.id = ctx.session.user.id;
+
+			console.log(input);
 
 			const payment = await ctx.prisma.payment.create({
 				data: input,
