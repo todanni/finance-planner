@@ -31,6 +31,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@hookform/resolvers": "^3.0.0",
     "@types/eslint": "^8.21.3",
     "@types/node": "^18.15.11",
     "@types/prettier": "^2.7.2",

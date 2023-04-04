@@ -1,15 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
 	faCoins,
 	faMoneyBills,
 	faCreditCard,
 } from '@fortawesome/free-solid-svg-icons';
-import { discord, github, linkedin, banner } from '../assets';
+import { discord, github, linkedin } from '../assets';
 
 const meta = {
 	description: '',
 	title: 'ToDanni Finance Planner',
 	image: 'https://imgur.com/NAeYmRI',
 };
+
+const day = 1000 * 60 * 60 * 24;
 
 const navLinks = [
 	{
@@ -123,4 +126,4 @@ const footerLinks = [
 	},
 ];
 
-export { footerLinks, socialMedia, navLinks, features, meta };
+export { footerLinks, socialMedia, navLinks, features, meta, day };

@@ -47,6 +47,7 @@ model User {
   sessions      Session[]
   balances      Balance[]
   payments      Payment[]
+  goals         Goal[]
 }
 
 model VerificationToken {
@@ -59,7 +60,7 @@ model VerificationToken {
 
 model Balance {
   id            Int         @id @default(autoincrement())
-  userId        String      @unique
+  userId        String
   amount        Decimal
   createdAt     DateTime    @default(now())
   endDate       DateTime?
@@ -69,25 +70,37 @@ model Balance {
   subCategoryId Int
   user          User        @relation(fields: [userId], references: [id])
   subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
+  goalId        Int?
+  goal          Goal?        @relation(fields: [goalId], references: [id])
 
+  @@index([goalId])
   @@index([subCategoryId])
+  @@index([userId])
 }
 
 model Payment {
-  id            Int         @id @default(autoincrement())
-  userId        String      @unique
-  amount        Decimal
-  createdAt     DateTime    @default(now())
-  interestRate  Decimal?
-  name          String
-  nextPaidOn    DateTime?
-  paidOn        DateTime?
-  recurring     Boolean
+  id        Int       @id @default(autoincrement())
+  amount    Decimal
+  createdAt DateTime  @default(now())
+  name      String
+  startDate DateTime?
+  endDate   DateTime?
+  isNet     Boolean
+  repeats   Boolean
+  repeatsIn Int
+
   subCategoryId Int
-  user          User        @relation(fields: [userId], references: [id])
   subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
 
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  goalId Int?
+  goal   Goal? @relation(fields: [goalId], references: [id])
+
+  @@index([goalId])
   @@index([subCategoryId])
+  @@index([userId])
 }
 
 model Category {
@@ -105,4 +118,15 @@ model SubCategory {
   balances   Balance[]
 
   @@index([categoryId])
+}
+
+model Goal {
+  id     Int    @id @default(autoincrement())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  payments Payment[]
+  balances Balance[]
+
+  @@index([userId])
 }
