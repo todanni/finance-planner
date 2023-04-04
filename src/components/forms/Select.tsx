@@ -13,7 +13,7 @@ type Props = {
 	defaultValue: string | number;
 };
 
-const Select = ({ options, name, label, defaultValue }: Props) => {
+const Select = ({ options, name, label }: Props) => {
 	const { register } = useFormContext();
 
 	return (

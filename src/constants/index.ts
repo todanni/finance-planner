@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
 	faCoins,
 	faMoneyBills,
 	faCreditCard,
 } from '@fortawesome/free-solid-svg-icons';
-import { discord, github, linkedin, banner } from '../assets';
+import { discord, github, linkedin } from '../assets';
 
 const meta = {
 	description: '',
