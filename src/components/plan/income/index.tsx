@@ -2,6 +2,7 @@ import React from 'react';
 import Form from '~/components/plan/income/IncomeForm';
 import IncomePayments from './IncomePayments';
 import { styles } from '~/components/layout/styles';
+import IncomeChart from '~/components/charts/IncomeChart';
 
 type Props = {
 	userId?: string;
@@ -15,7 +16,7 @@ const Income = ({}: Props) => {
 				<Form />
 			</div>
 			<div className={styles.sectionInfo}>
-				<IncomePayments />
+				<IncomeChart />
 			</div>
 		</div>
 	);

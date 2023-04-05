@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 import Datepicker from 'tailwind-datepicker-react';
 
 const options = {
@@ -24,21 +25,27 @@ const options = {
 		next: () => <span>{'>'}</span>,
 	},
 	datepickerClassNames: 'top-12',
-	defaultDate: new Date('2023-03-31'),
+	defaultDate: new Date(),
 	language: 'en',
 };
 type Props = {
 	label: string;
+	name: string;
 };
 
-const DatePick = ({ label }: Props) => {
+const DatePick = ({ label, name }: Props) => {
 	const [show, setShow] = useState<boolean>(false);
+
 	const handleChange = (selectedDate: Date) => {
-		console.log(selectedDate);
+		setValue(name, selectedDate);
 	};
+
 	const handleClose = (state: boolean) => {
 		setShow(state);
 	};
+
+	const { setValue } = useFormContext();
+
 	return (
 		<div>
 			<label className='mb-2 block text-sm font-medium text-white'>

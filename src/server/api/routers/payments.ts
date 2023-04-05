@@ -29,7 +29,7 @@ export const paymentsRouter = createTRPCRouter({
 				name: z.string(),
 				amount: z.number(),
 				endDate: z.date().optional(),
-				startDate: z.date().optional(),
+				startDate: z.date().optional().nullable(),
 				isNet: z.boolean(),
 				repeats: z.boolean(),
 				repeatsIn: z.number().default(0),

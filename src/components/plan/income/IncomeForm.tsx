@@ -11,9 +11,7 @@ import { Prisma } from '@prisma/client';
 
 const IncomePaymentForm = () => {
 	const methods = useForm<Payment>();
-
 	const mutation = api.payment.add.useMutation();
-
 	const submitPayment: SubmitHandler<Payment> = (data: Payment) => {
 		console.log(Number(data.subCategoryId));
 
@@ -30,8 +28,13 @@ const IncomePaymentForm = () => {
 			amount: new Prisma.Decimal(data.amount).toNumber(),
 			isNet: data.isNet,
 			repeats: data.repeats,
+			startDate: data.startDate,
+			repeatsIn: data.repeatsIn,
 		});
 	};
+
+	const watchRepeats = methods.watch('repeats', false);
+	const watchCustomRepeat = methods.watch('repeatsIn', 0);
 
 	return (
 		<>
@@ -49,14 +52,14 @@ const IncomePaymentForm = () => {
 						defaultOption='Post-tax'
 						secondaryOption='Pre-tax'
 					/>
-					<DatePick label='When did you receive this?' />
+					<DatePick name='startDate' label='When did you receive this?' />
 					<ToggleSelect
 						name='repeats'
 						label='Does this payment repeat?'
 						defaultOption='Single'
 						secondaryOption='Reoccurring'
 					/>
-					<RepeatSelect />
+					{watchRepeats && <RepeatSelect />}
 					<div>
 						<label className='mb-2 block text-sm font-medium text-transparent'>
 							Some text
