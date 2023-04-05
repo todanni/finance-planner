@@ -39,7 +39,7 @@ const IncomeChart = ({}: Props) => {
 		responsive: true,
 		plugins: {
 			legend: {
-				// display: false,
+				display: false,
 			},
 		},
 	};
@@ -51,11 +51,15 @@ const IncomeChart = ({}: Props) => {
 				label: 'Income',
 				data: amount,
 				backgroundColor: [
-					'#f75a68',
-					'#359EE5',
-					'#FF9F40',
-					'#4BC0C0',
-					'#7F60F3',
+					'#5691D0',
+					'#2978CC',
+					'#1664B6',
+					'#1B5088',
+					'#1C4066',
+					'#1B344D',
+					'#19293B',
+					'#16212D',
+					'#131B23',
 				],
 			},
 		],
@@ -64,12 +68,10 @@ const IncomeChart = ({}: Props) => {
 	return (
 		<div className='flex w-full flex-col items-center'>
 			<h1 className='mb-4 text-xl text-white'> Your income </h1>
-			<div className='relative h-[400px] w-[600px]'>
-				<Doughnut options={options} data={data} className='absolute' />
-				<p className='absolute bottom-0 -translate-y-full text-lg text-white'>
-					8023£
-				</p>
+			<div className='h-4/5'>
+				<Doughnut options={options} data={data} className='' />
 			</div>
+			<p className=' bottom-0 -translate-y-1/2 text-lg text-white'>8023£</p>
 		</div>
 	);
 };

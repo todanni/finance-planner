@@ -2,80 +2,51 @@ type Props = {
 	someProp?: string;
 };
 
+const steps = [
+	'Estimate Income',
+	'Calculate Spending',
+	'Track Savings',
+	'Optimise Debt',
+];
+
 const PlanSteps = ({}: Props) => {
 	return (
-		<div className='mb-4'>
-			<ol className='flex w-full items-center space-x-2 rounded-lg border border-white p-3 text-center text-sm font-medium shadow-sm    sm:space-x-4 sm:p-4 sm:text-base'>
-				<li className='flex items-center text-td-grn-4'>
-					<span className='mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-td-grn-4 text-xs '>
-						1
-					</span>
-					Income <span className='hidden sm:ml-2 sm:inline-flex'>sources</span>
-					<svg
-						aria-hidden='true'
-						className='ml-2 h-4 w-4 sm:ml-4'
-						fill='none'
-						stroke='currentColor'
-						viewBox='0 0 24 24'
-						xmlns='http://www.w3.org/2000/svg'>
-						<path
-							strokeLinecap='round'
-							strokeLinejoin='round'
-							strokeWidth={2}
-							d='M13 5l7 7-7 7M5 5l7 7-7 7'
-						/>
-					</svg>
-				</li>
-				<li className='flex items-center text-white'>
-					<span className='mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white text-xs text-white '>
-						2
-					</span>
-					Outstanding
-					<span className='hidden sm:ml-2 sm:inline-flex'>debt</span>
-					<svg
-						aria-hidden='true'
-						className='ml-2 h-4 w-4 sm:ml-4'
-						fill='none'
-						stroke='currentColor'
-						viewBox='0 0 24 24'
-						xmlns='http://www.w3.org/2000/svg'>
-						<path
-							strokeLinecap='round'
-							strokeLinejoin='round'
-							strokeWidth={2}
-							d='M13 5l7 7-7 7M5 5l7 7-7 7'
-						/>
-					</svg>
-				</li>
-				<li className='flex items-center text-white'>
-					<span className='mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white text-xs text-white '>
-						3
-					</span>
-					Spending
-					<span className='hidden sm:ml-2 sm:inline-flex'></span>
-					<svg
-						aria-hidden='true'
-						className='ml-2 h-4 w-4 sm:ml-4'
-						fill='none'
-						stroke='currentColor'
-						viewBox='0 0 24 24'
-						xmlns='http://www.w3.org/2000/svg'>
-						<path
-							strokeLinecap='round'
-							strokeLinejoin='round'
-							strokeWidth={2}
-							d='M13 5l7 7-7 7M5 5l7 7-7 7'
-						/>
-					</svg>
-				</li>
-				<li className='flex items-center text-white'>
-					<span className='mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white text-xs '>
-						4
-					</span>
-					Analysis
-				</li>
+		<nav
+			className='flex justify-center rounded-lg border border-td-gry-3 px-5 py-3 text-white'
+			aria-label='Breadcrumb'>
+			<ol className='inline-flex items-center space-x-1 md:space-x-3'>
+				{steps?.map((step, index) => (
+					<li key={index} className='inline-flex items-center'>
+						<div className='flex items-center'>
+							{index !== 0 ? (
+								<svg
+									aria-hidden='true'
+									className='h-6 w-6 text-td-grn-4'
+									fill='currentColor'
+									viewBox='0 0 20 20'
+									xmlns='http://www.w3.org/2000/svg'>
+									<path
+										fillRule='evenodd'
+										d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z'
+										clipRule='evenodd'
+									/>
+								</svg>
+							) : (
+								<></>
+							)}
+
+							<a
+								href='#'
+								className={`ml-1 text-sm font-medium ${
+									index !== 0 ? 'text-white' : 'text-td-grn-3'
+								} hover:text-td-grn-3 md:ml-2`}>
+								{step}
+							</a>
+						</div>
+					</li>
+				))}
 			</ol>
-		</div>
+		</nav>
 	);
 };
 

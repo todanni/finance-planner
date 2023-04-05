@@ -12,7 +12,7 @@ const PlanSection: React.FC = () => {
 			className='mt-5 flex flex-col items-center justify-center'>
 			{sessionData && (
 				<div>
-					<PlanSteps></PlanSteps>
+					<PlanSteps />
 					<Income userId={sessionData.user.id} />
 				</div>
 			)}
