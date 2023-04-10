@@ -2,6 +2,7 @@
 import React from 'react';
 import { steps } from './steps';
 import CategoryStep from './CategoryStep';
+import Results from './Results';
 
 const Stepper = () => {
 	const [currentStep, setCurrentStep] = React.useState(0);
@@ -51,6 +52,7 @@ const Stepper = () => {
 					notes={steps[currentStep]!.notes}
 				/>
 			)}
+			{steps[currentStep]?.title === 'Results' && <Results />}
 		</div>
 	);
 };

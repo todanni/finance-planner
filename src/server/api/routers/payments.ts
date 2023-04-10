@@ -1,5 +1,4 @@
 import { z } from 'zod';
-
 import {
 	createTRPCRouter,
 	publicProcedure,
@@ -19,6 +18,23 @@ export const paymentsRouter = createTRPCRouter({
 		return ctx.prisma.payment.findMany({
 			where: {
 				userId: ctx.session?.user.id,
+			},
+		});
+	}),
+
+	listForCurrentMonth: protectedProcedure.query(({ ctx }) => {
+		// Get the first and last day of current month
+		const date = new Date();
+		const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+		const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+		return ctx.prisma.payment.findMany({
+			where: {
+				userId: ctx.session?.user.id,
+				createdAt: {
+					lte: lastDay,
+					gte: firstDay,
+				},
 			},
 		});
 	}),

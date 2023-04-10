@@ -27,7 +27,6 @@ const PaymentForm = ({ category }: Props) => {
 			isNet: true,
 			repeats: false,
 		});
-
 		methods.reset();
 	};
 

@@ -1,4 +1,4 @@
-import { type Category } from '@prisma/client';
+import { type Payment, type Category } from '@prisma/client';
 import { useFormContext } from 'react-hook-form';
 import { api } from '~/utils/api';
 
@@ -11,10 +11,7 @@ const SubCategorySelect = ({ category }: CategorySelectProps) => {
 		categoryId: category.id,
 	});
 
-	const {
-		register,
-		formState: { errors },
-	} = useFormContext();
+	const { register } = useFormContext<Payment>();
 
 	return (
 		<div>

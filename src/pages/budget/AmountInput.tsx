@@ -6,10 +6,7 @@ type InputProps = {
 };
 
 const AmountInput = ({ label }: InputProps) => {
-	const {
-		register,
-		formState: { errors },
-	} = useFormContext<Payment>();
+	const { register } = useFormContext<Payment>();
 
 	return (
 		<div>
@@ -25,7 +22,6 @@ const AmountInput = ({ label }: InputProps) => {
 				placeholder='£1000'
 				{...register('amount')}
 			/>
-			{errors.amount && <p role='alert'>{errors.amount?.message}</p>}
 		</div>
 	);
 };
