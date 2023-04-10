@@ -3,67 +3,30 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
 const Results = () => {
-	const { data: payments } = api.payment.listForCurrentMonth.useQuery();
-	const { data: categories } = api.category.getAll.useQuery();
-
-	// Map the category titles to the chart labels
-	const labels = categories?.map((category) => category.name);
-
-	// Map the category total to the chart amount
-	// const amount = labels?.map(
-	// 	(label) => payments?.find((payment) => payment.subCategoryId === label)?.amount,
-	// );
-
-	const data = {
-		labels,
-		datasets: [
-			{
-				// Category title
-				label: 'Income',
-				// Category total
-				data: 0,
-			},
-		],
-	};
-
 	return (
-		<div className='text-white'>
-			<h1>Results</h1>
+		<div className='flex text-white'>
 			<IncomeChart />
 		</div>
 	);
 };
 
 const IncomeChart = () => {
-	ChartJS.register(ArcElement, Tooltip, Legend);
+	const { data: payments } = api.payment.listForCurrentMonth.useQuery();
+	const { data: categories } = api.category.getAll.useQuery();
+	const labels = categories?.map((category) => category.name);
 
-	const categories = [
-		{
-			title: 'Salary',
-			amount: 4569,
-		},
-		{
-			title: 'RSUs',
-			amount: 3458,
-		},
-		{
-			title: 'Interest',
-			amount: 10,
-		},
-		{
-			title: 'Investments',
-			amount: 200,
-		},
-	];
-
-	const labels = categories?.map((category) => category.title);
-	const amount = labels?.map(
-		(label) => categories?.find((category) => category.title === label)?.amount,
+	const amounts = categories?.map(
+		(category) =>
+			payments?.find(
+				(payment) =>
+					payment.subCategory.categoryId === category.id &&
+					payment.subCategory.categoryId !== 1,
+			)?.amount,
 	);
 
+	ChartJS.register(ArcElement, Tooltip, Legend);
+
 	const options = {
-		rotation: -90,
-		circumference: 180,
 		responsive: true,
 		plugins: {
 			legend: {
@@ -76,30 +39,28 @@ const IncomeChart = () => {
 		labels,
 		datasets: [
 			{
-				label: 'Income',
-				data: amount,
+				// label: 'Budget',
+				data: amounts,
 				backgroundColor: [
 					'#5691D0',
 					'#2978CC',
 					'#1664B6',
 					'#1B5088',
 					'#1C4066',
-					'#1B344D',
-					'#19293B',
-					'#16212D',
-					'#131B23',
 				],
 			},
 		],
 	};
 
 	return (
-		<div className='flex w-full flex-col items-center'>
-			<h1 className='mb-4 text-xl text-white'> Your income </h1>
-			<div className='h-4/5'>
-				<Doughnut options={options} data={data} className='' />
-			</div>
-			<p className=' bottom-0 -translate-y-1/2 text-lg text-white'>8023£</p>
+		<div
+			style={{
+				height: '60vh',
+				position: 'relative',
+				marginBottom: '1%',
+				padding: '1%',
+			}}>
+			<Doughnut options={options} data={data} />
 		</div>
 	);
 };

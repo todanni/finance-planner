@@ -22,10 +22,6 @@ const SubCategorySelect = ({ category }: CategorySelectProps) => {
 				{...register('subCategoryId')}
 				id={'subCat-select'}
 				className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-td-gry-5'>
-				<option disabled selected>
-					Select option
-				</option>
-
 				{subCategories?.map((opt, index) => (
 					<option key={index} value={opt.id}>
 						{opt.name}

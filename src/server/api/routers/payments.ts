@@ -36,6 +36,9 @@ export const paymentsRouter = createTRPCRouter({
 					gte: firstDay,
 				},
 			},
+			include: {
+				subCategory: true,
+			},
 		});
 	}),
 
