@@ -7,8 +7,7 @@ const Budget: NextPage = () => {
 		<>
 			<Layout title='Budget | ToDanni Finance Planner'>
 				<div className='flex flex-col items-center justify-center px-20'>
-					{/* <Steps /> */}
-					<Stepper></Stepper>
+					<Stepper />
 				</div>
 			</Layout>
 		</>

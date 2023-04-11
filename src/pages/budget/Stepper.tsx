@@ -10,8 +10,8 @@ const Stepper = () => {
 
 	return (
 		<div className='m-4 w-full rounded-lg border border-gray-200 p-4'>
-			<h1 className=' text-center text-xl text-white'>Budget</h1>
-			<h2 className='mb-5 text-center text-lg text-td-gry-0'>
+			<h1 className=' text-left text-xl text-white'>Budget</h1>
+			<h2 className='mb-5 text-left text-lg text-td-gry-0'>
 				Visiualise your monthly budget
 			</h2>
 			<ol className='flex w-full items-center rounded-lg border border-gray-200 p-3 text-center text-sm font-medium text-white shadow-sm sm:space-x-4 sm:p-4 sm:text-base'>
@@ -43,6 +43,7 @@ const Stepper = () => {
 					</li>
 				))}
 			</ol>
+			{steps[currentStep]?.title === 'Results' && <Results />}
 			{steps[currentStep] && (
 				<CategoryStep
 					key={currentStep}
@@ -52,7 +53,6 @@ const Stepper = () => {
 					notes={steps[currentStep]!.notes}
 				/>
 			)}
-			{steps[currentStep]?.title === 'Results' && <Results />}
 		</div>
 	);
 };

@@ -55,10 +55,8 @@ const IncomeChart = () => {
 	return (
 		<div
 			style={{
-				height: '60vh',
+				width: '50%',
 				position: 'relative',
-				marginBottom: '1%',
-				padding: '1%',
 			}}>
 			<Doughnut options={options} data={data} />
 		</div>

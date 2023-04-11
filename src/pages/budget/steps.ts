@@ -101,6 +101,6 @@ export const steps: StepProps[] = [
 		categories: [],
 		title: 'Results',
 		description: "Here's the breakdown of your income vs. your spending",
-		notes: [],
+		notes: ['Your budget!'],
 	},
 ];
