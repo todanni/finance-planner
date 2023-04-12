@@ -1,15 +1,15 @@
-import { type Payment, type Category, Prisma } from '@prisma/client';
+import { type Payment, Prisma } from '@prisma/client';
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
+import { api } from '~/utils/api';
 import SubCategorySelect from './SubCategorySelect';
 import AmountInput from './AmountInput';
-import PaymentNameInput from './PaymentNameInput';
-import { api } from '~/utils/api';
+import NameInput from './NameInput';
 
-type Props = {
-	categoryId: number;
+type FormProps = {
+	categoryId?: number;
 };
 
-const PaymentForm = ({ categoryId }: Props) => {
+const BudgetPaymentForm = ({ categoryId }: FormProps) => {
 	const methods = useForm<Payment>();
 	const mutation = api.payment.add.useMutation();
 	const submitPayment: SubmitHandler<Payment> = (data: Payment) => {
@@ -36,9 +36,9 @@ const PaymentForm = ({ categoryId }: Props) => {
 				className='grid grid-cols-none grid-rows-4 gap-2'
 				// eslint-disable-next-line @typescript-eslint/no-misused-promises
 				onSubmit={methods.handleSubmit(submitPayment)}>
-				<SubCategorySelect categoryId={categoryId} />
+				<SubCategorySelect categoryId={categoryId!} />
 				<AmountInput label={'Amount'} />
-				<PaymentNameInput label='Give it a name' />
+				<NameInput label='Give it a name' />
 				<div>
 					<button
 						type='submit'
@@ -51,4 +51,4 @@ const PaymentForm = ({ categoryId }: Props) => {
 	);
 };
 
-export default PaymentForm;
+export default BudgetPaymentForm;

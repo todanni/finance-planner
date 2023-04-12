@@ -1,4 +1,4 @@
-import { type Payment, type Category } from '@prisma/client';
+import { type Payment } from '@prisma/client';
 import { useFormContext } from 'react-hook-form';
 import { api } from '~/utils/api';
 

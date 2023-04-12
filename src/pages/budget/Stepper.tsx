@@ -9,7 +9,7 @@ const Stepper = () => {
 	const handleClick = (stepIndex: number) => setCurrentStep(stepIndex);
 
 	return (
-		<div className='m-4 w-full rounded-lg border border-gray-200 p-4'>
+		<div className='m-4 w-full rounded-lg border border-gray-200 bg-td-gry-6 p-4'>
 			<h1 className=' text-left text-xl text-white'>Budget</h1>
 			<h2 className='mb-5 text-left text-lg text-td-gry-0'>
 				Visiualise your monthly budget
@@ -52,6 +52,17 @@ const Stepper = () => {
 					description={steps[currentStep]!.description}
 					notes={steps[currentStep]!.notes}
 				/>
+			)}
+
+			{steps[currentStep]?.title !== 'Results' && (
+				<div className='flex justify-end'>
+					<button
+						type='submit'
+						className='rounded-lg bg-td-grn-4 px-4 py-2 text-center text-white'
+						onClick={() => handleClick(currentStep + 1)}>
+						Next
+					</button>
+				</div>
 			)}
 		</div>
 	);

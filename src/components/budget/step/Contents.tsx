@@ -1,0 +1,36 @@
+import { useSession } from 'next-auth/react';
+import { type Step } from '~/pages/spending/steps';
+import NextStepButton from './NextButton';
+import StepInstructions from './Instructions';
+import BudgetPaymentForm from '../form';
+
+type ContentsProps = {
+	step: Step | undefined;
+};
+
+const BudgetStepContents = ({ step }: ContentsProps) => {
+	const { data: sessionData } = useSession();
+
+	return (
+		<div className={`m-4 grid gap-4 text-white`}>
+			<div className=''>
+				<h1 className='text-xl font-bold'>{step?.subTitle}</h1>
+			</div>
+			<div className='flex flex-col gap-y-6'>
+				{step?.sections.map((section, index) => (
+					<StepInstructions section={section} key={index} />
+				))}
+			</div>
+			<div className=''>
+				<div>
+					{step?.hasForm && <BudgetPaymentForm categoryId={step?.categoryId} />}
+				</div>
+			</div>
+			<div className={`mt-4 self-end justify-self-end`}>
+				<NextStepButton buttonText={step?.nextButtonText} />
+			</div>
+		</div>
+	);
+};
+
+export default BudgetStepContents;
