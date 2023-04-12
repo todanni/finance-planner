@@ -7,10 +7,10 @@ type RowProps = {
 
 const BudgetResultRow = ({ subCategory, name, amount }: RowProps) => {
 	return (
-		<tr>
+		<tr className='border-b border-td-gry-4'>
 			<td className='px-2 py-2 text-left'>{subCategory}</td>
 			<td className='px-2 py-2 text-left'>{name}</td>
-			<td className='px-2 py-2 text-right'>{`£${amount}`}</td>
+			<td className='px-2 py-2 text-right'>{`${amount}`}</td>
 		</tr>
 	);
 };

@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { type Step } from '~/pages/spending/steps';
+import { type Step } from '~/pages/budget/steps';
 import NextStepButton from './NextButton';
 import StepInstructions from './Instructions';
 import BudgetPaymentForm from '../form';
@@ -25,9 +25,6 @@ const BudgetStepContents = ({ step }: ContentsProps) => {
 				<div>
 					{step?.hasForm && <BudgetPaymentForm categoryId={step?.categoryId} />}
 				</div>
-			</div>
-			<div className={`mt-4 self-end justify-self-end`}>
-				<NextStepButton buttonText={step?.nextButtonText} />
 			</div>
 		</div>
 	);

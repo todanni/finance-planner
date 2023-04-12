@@ -1,23 +1,21 @@
 import React from 'react';
 import ViewChangeButtons from './ViewChangeButton';
-import Table from './Table';
-import BudgetResultChart from './Chart';
-import BudgetResultTotals from './Totals';
+import Table from './table/Table';
+import BudgetResultChart from './chart/Chart';
 import BudgetResultResetButton from './ResetButton';
 
 const BudgetResult = () => {
-	const [showTable, setShowTable] = React.useState(true);
+	const [showTable, setShowTable] = React.useState(false);
 
 	const handleClick = () => {
 		setShowTable(!showTable);
 	};
 
 	return (
-		<div className='flex flex-col items-center text-sm text-white'>
+		<div className='flex h-full flex-col items-center justify-between text-sm text-white'>
 			<ViewChangeButtons changeView={handleClick} />
 			{showTable && <Table />}
 			{!showTable && <BudgetResultChart />}
-			<BudgetResultTotals />
 			<BudgetResultResetButton />
 		</div>
 	);

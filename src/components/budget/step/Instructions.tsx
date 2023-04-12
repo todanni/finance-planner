@@ -1,4 +1,4 @@
-import { type StepSection } from '~/pages/spending/steps';
+import { type StepSection } from '~/pages/budget/steps';
 
 type InstructionsProps = {
 	section: StepSection;

@@ -1,6 +1,7 @@
 import { api } from '~/utils/api';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import BudgetResultTotals from './Totals';
 
 const BudgetResultChart = () => {
 	const { data: payments } = api.payment.listForCurrentMonth.useQuery();
@@ -47,7 +48,12 @@ const BudgetResultChart = () => {
 		],
 	};
 
-	return <Doughnut options={options} data={data} />;
+	return (
+		<div>
+			<Doughnut options={options} data={data} />
+			<BudgetResultTotals />
+		</div>
+	);
 };
 
 export default BudgetResultChart;

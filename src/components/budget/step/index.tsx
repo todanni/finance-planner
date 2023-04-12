@@ -1,21 +1,25 @@
 import React from 'react';
 import BudgetStepper from './Stepper';
-import { steps } from '~/pages/spending/steps';
+import { steps } from '~/pages/budget/steps';
 import BudgetStepContents from './Contents';
+import NextStepButton from './NextButton';
 
-const StepComponent = () => {
+const BudgetStep = () => {
 	const [currentStep, setCurrentStep] = React.useState(0);
 	const handleClick = (stepIndex: number) => setCurrentStep(stepIndex);
 
 	return (
-		<div className='rounded-lg border border-td-gry-4 p-4 shadow-sm md:col-span-6'>
+		<div className='flex h-full flex-col justify-between p-4'>
 			<BudgetStepper
 				setCurrentStep={handleClick}
 				title={steps[currentStep]?.title}
 			/>
 			<BudgetStepContents step={steps[currentStep]} />
+			<div className={`mt-4 self-end justify-self-end`}>
+				<NextStepButton buttonText={steps[currentStep]?.nextButtonText} />
+			</div>
 		</div>
 	);
 };
 
-export default StepComponent;
+export default BudgetStep;
