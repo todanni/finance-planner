@@ -36,6 +36,7 @@ const BudgetPaymentForm = ({ categoryId }: FormProps) => {
 				className='grid grid-cols-none grid-rows-4 gap-2'
 				// eslint-disable-next-line @typescript-eslint/no-misused-promises
 				onSubmit={methods.handleSubmit(submitPayment)}>
+				{/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
 				<SubCategorySelect categoryId={categoryId!} />
 				<AmountInput label={'Amount'} />
 				<NameInput label='Give it a name' />
