@@ -1,4 +1,4 @@
-export type Step = {
+type Step = {
 	title: string;
 	subTitle: string;
 	sections: StepSection[];
@@ -7,14 +7,14 @@ export type Step = {
 	hasForm: boolean;
 };
 
-export type StepSection = {
+type StepSection = {
 	heading: string;
 	subHeading: string;
 	paragraph: string;
 	hasForm?: boolean;
 };
 
-export const steps: Step[] = [
+const steps: Step[] = [
 	{
 		title: 'Intro',
 		subTitle: 'Getting started',
@@ -190,3 +190,5 @@ export const steps: Step[] = [
 		],
 	},
 ];
+
+export { type Step, type StepSection, steps };

@@ -1,4 +1,4 @@
-import { type Step } from '~/pages/budget/steps';
+import { type Step } from '~/constants/steps';
 import StepInstructions from './Instructions';
 import BudgetPaymentForm from '../form';
 

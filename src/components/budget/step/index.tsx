@@ -1,6 +1,6 @@
 import React from 'react';
 import BudgetStepper from './Stepper';
-import { steps } from '~/pages/budget/steps';
+import { steps } from '~/constants/steps';
 import BudgetStepContents from './Contents';
 import NextStepButton from './NextButton';
 

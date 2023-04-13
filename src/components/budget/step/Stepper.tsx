@@ -1,4 +1,4 @@
-import { steps } from '~/pages/budget/steps';
+import { steps } from '~/constants/steps';
 
 type StepperProps = {
 	title: string | undefined;
