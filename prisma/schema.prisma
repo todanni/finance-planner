@@ -92,6 +92,9 @@ model Payment {
   subCategoryId Int
   subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
 
+  // categoryId Int
+  // category   Category @relation(fields: [categoryId], references: [id])
+
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
@@ -99,6 +102,7 @@ model Payment {
   goal   Goal? @relation(fields: [goalId], references: [id])
 
   @@index([goalId])
+  // @@index([categoryId])
   @@index([subCategoryId])
   @@index([userId])
 }
@@ -107,6 +111,7 @@ model Category {
   id            Int           @id @default(autoincrement())
   name          String
   subCategories SubCategory[]
+  // payments Payment[]
 }
 
 model SubCategory {
