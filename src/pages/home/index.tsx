@@ -1,12 +1,12 @@
 import { type NextPage } from 'next';
 import DefaultLayout from '~/layouts/DefaultLayout';
 
-const Budget: NextPage = () => {
+const Home: NextPage = () => {
 	return (
-		<DefaultLayout title='Budget | Finance Planner'>
-			<h1> Budget </h1>
+		<DefaultLayout title='Finance Planner | ToDanni'>
+			<h1>Home</h1>
 		</DefaultLayout>
 	);
 };
 
-export default Budget;
+export default Home;
