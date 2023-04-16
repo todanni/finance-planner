@@ -50,9 +50,9 @@ const Hero = () => {
 				</div>
 			</div>
 			<div className='flex gap-4'>
-				<Button size='medium'> Get started </Button>
+				<Button size='medium'> Create acccount </Button>
 				<Button size='medium' intent='secondary'>
-					View demo
+					Preview demo
 				</Button>
 			</div>
 		</div>

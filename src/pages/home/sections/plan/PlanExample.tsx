@@ -53,8 +53,8 @@ const PlanExample = () => {
 					{section.sources?.map((source) => (
 						<>
 							<div key={source.name} className='flex justify-between'>
-								<p className='text-white/60'>{source.name}</p>
-								<p className='text-lg text-white/60'>{source.amount}</p>
+								<p className=' text-white/60'>{source.name}</p>
+								<p className=' text-white/60'>{source.amount}</p>
 							</div>
 							{source.deadline && (
 								<div className='flex items-center justify-between'>
