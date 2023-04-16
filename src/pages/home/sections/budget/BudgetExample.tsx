@@ -35,6 +35,9 @@ const BudgetExample = () => {
 				<DonutChart chartInputs={chartInputs} />
 			</div>
 			<div className='col-span-2 flex flex-col self-center p-4'>
+				<p className='text-md mb-2 text-end font-bold text-white'>
+					Your budget
+				</p>
 				{chartInputs.map((input) => (
 					<div key={input.label} className='flex justify-between gap-2'>
 						<div className='flex items-center gap-2 '>
