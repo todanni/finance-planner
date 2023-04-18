@@ -1,16 +1,14 @@
 import { api } from '~/utils/api';
 import BudgetResultRow from './Row';
-import { Prisma } from '@prisma/client';
 
 const BudgetResultTable = () => {
 	const { data: payments } = api.payment.listForCurrentMonth.useQuery();
 
+	console.log(payments);
+
 	const sortPayments = () => {
 		return payments?.sort((a, b) => {
-			return (
-				new Prisma.Decimal(b.amount).toNumber() -
-				new Prisma.Decimal(a.amount).toNumber()
-			);
+			return b.amount - a.amount;
 		});
 	};
 
@@ -38,7 +36,7 @@ const BudgetResultTable = () => {
 								category={payment.subCategory.name}
 								subCategory={payment.subCategory.name}
 								name={payment.name}
-								amount={new Prisma.Decimal(payment.amount).toNumber()}
+								amount={payment.amount}
 							/>
 						))}
 					</tbody>
