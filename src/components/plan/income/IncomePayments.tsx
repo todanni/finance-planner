@@ -1,6 +1,5 @@
 import Table from '~/components/table';
 import { api } from '~/utils/api';
-import { Prisma } from '@prisma/client';
 
 const headers = ['Date', 'Category', 'Name', 'Amount'];
 
@@ -14,7 +13,7 @@ const IncomePayments = () => {
 					headers={headers}
 					rows={payments?.map((payment) => {
 						return {
-							amount: new Prisma.Decimal(payment.amount).toNumber(),
+							amount: payment.amount,
 							name: payment.name,
 							category: payment.subCategoryId.toString(),
 							date: payment.createdAt.toDateString(),

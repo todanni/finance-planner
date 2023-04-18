@@ -27,7 +27,7 @@ const IncomePaymentForm = () => {
 				},
 			},
 			name: data.name,
-			amount: new Prisma.Decimal(data.amount).toNumber(),
+			amount: data.amount,
 			isNet: data.isNet,
 			repeats: data.repeats,
 		});
