@@ -8,6 +8,14 @@ export const navlinks = [
 		name: 'Budget',
 	},
 	{
+		location: 'plan',
+		name: 'Plan',
+	},
+	{
+		location: 'track',
+		name: 'Track',
+	},
+	{
 		location: 'blog',
 		name: 'Blog',
 	},

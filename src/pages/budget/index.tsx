@@ -1,5 +1,5 @@
 import { type NextPage } from 'next';
-import DefaultLayout from '~/layouts/DefaultLayout';
+import { DefaultLayout } from '~/layouts/DefaultLayout';
 
 const Budget: NextPage = () => {
 	return (

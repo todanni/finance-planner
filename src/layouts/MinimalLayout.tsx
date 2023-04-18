@@ -7,14 +7,20 @@ type Props = {
 	title?: string;
 };
 
-const DefaultLayout = ({
+const MinimalLayout = ({
 	children,
 	title = 'ToDanni Finance Planner',
 }: Props) => (
 	<div className='h-screen w-full'>
 		<div className='flex h-full flex-col items-center justify-between'>
 			<div className='m-4 w-11/12 max-w-screen-2xl'>
-				<Navbar links={navlinks} currentLocation='home' variant='logo' />
+				<Navbar
+					links={navlinks}
+					currentLocation='plan'
+					variant='title'
+					firstWord='Finance'
+					secondWord='Planner'
+				/>
 				<main>{children}</main>
 			</div>
 			<div className='flex w-full justify-center bg-[#1f2023] py-4'>
@@ -26,4 +32,4 @@ const DefaultLayout = ({
 	</div>
 );
 
-export { DefaultLayout };
+export { MinimalLayout };

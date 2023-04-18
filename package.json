@@ -36,7 +36,7 @@
 	},
 	"devDependencies": {
 		"@hookform/resolvers": "^3.0.0",
-		"@todanni/ui": "0.6.2",
+		"@todanni/ui": "^0.9.0",
 		"@types/eslint": "^8.21.3",
 		"@types/node": "^18.15.11",
 		"@types/prettier": "^2.7.2",
