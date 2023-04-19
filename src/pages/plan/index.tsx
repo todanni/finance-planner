@@ -5,23 +5,10 @@ import { api } from '~/utils/api';
 import IncomeSection from './PlanSection';
 
 const Plan: NextPage = () => {
-	const { data: balances } = api.balance.listAll.useQuery();
 	const { data: payments } = api.payment.listForCurrentMonth.useQuery();
 
 	const incomePayments = payments?.filter(
 		(payment) => payment.subCategory.categoryId === 1,
-	);
-
-	const debtPayments = payments?.filter(
-		(payment) => payment.subCategory.categoryId === 2,
-	);
-
-	const savingsPayments = payments?.filter(
-		(payment) => payment.subCategory.categoryId === 3,
-	);
-
-	const spendingPayments = payments?.filter(
-		(payment) => payment.subCategory.categoryId === 4 || 5 || 6,
 	);
 
 	console.log(payments);
