@@ -61,10 +61,10 @@ model VerificationToken {
 model Balance {
   id            Int         @id @default(autoincrement())
   userId        String
-  amount        Decimal
+  amount        Float
   createdAt     DateTime    @default(now())
   endDate       DateTime?
-  interestRate  Decimal?
+  interestRate  Float?
   name          String
   startDate     DateTime?
   subCategoryId Int
@@ -80,7 +80,7 @@ model Balance {
 
 model Payment {
   id        Int       @id @default(autoincrement())
-  amount    Decimal
+  amount    Float
   createdAt DateTime  @default(now())
   name      String
   startDate DateTime?
@@ -127,6 +127,9 @@ model SubCategory {
 
 model Goal {
   id     Int    @id @default(autoincrement())
+  amount Float 
+  deadline DateTime?
+
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
