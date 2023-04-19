@@ -1,19 +1,13 @@
-import { type NextPage } from "next";
-import Layout from "~/components/layout";
-import Hero from "~/components/home/Hero";
-import Container from "~/components/layout/Containers";
+import { type NextPage } from 'next';
 
 const Home: NextPage = () => {
-  return (
-    <>
-      <Layout title='Finance Planner | ToDanni'>
-        <Container>
-          <Hero/>
-        </Container>
-      </Layout>
-    </>
-  );
+	return (
+		<>
+			<h1 className='text-center text-xl text-white'>
+				Refactoring in progress...
+			</h1>
+		</>
+	);
 };
 
 export default Home;
-
