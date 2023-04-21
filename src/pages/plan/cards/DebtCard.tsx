@@ -1,23 +1,34 @@
 import { PlanCard } from '@todanni/ui';
+import { currentMonth } from '~/server/api/routers/transactions';
 import { api } from '~/utils/api';
 
 const DebtCard = () => {
-	const { data: sources } = api.debt.listForCurrentMonth.useQuery();
-	const { data: total } = api.debt.totalForCurrentMonth.useQuery();
-	const { data: balance } = api.debt.getTotalBalance.useQuery();
+	const { startDate, endDate } = currentMonth();
+
+	const { data: sources } = api.transactions.list.useQuery({
+		startDate: startDate,
+		endDate: endDate,
+		category: 'DEBT',
+	});
+
+	const { data: total } = api.transactions.totalForCategory.useQuery({
+		startDate: startDate,
+		endDate: endDate,
+		category: 'DEBT',
+	});
 
 	return (
 		<PlanCard
 			section='debt'
 			contents={{
 				title: 'Debt repayments',
-				totalPayments: total || 0,
+				totalPayments: total?._sum.amount || 0,
 				sources: sources,
-				totalBalance: balance || 0,
-				totalBalanceText: 'Total debt balance',
+				// totalBalance: balance || 0,
+				// totalBalanceText: 'Total debt balance',
 			}}
 		/>
 	);
 };
 
-export { DebtCard };
+export default DebtCard;

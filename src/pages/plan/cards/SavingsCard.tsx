@@ -1,23 +1,34 @@
 import { PlanCard } from '@todanni/ui';
 import { api } from '~/utils/api';
+import { currentMonth } from '~/server/api/routers/transactions';
 
 const SavingsCard = () => {
-	const { data: sources } = api.savings.listForCurrentMonth.useQuery();
-	const { data: total } = api.savings.totalForCurrentMonth.useQuery();
-	const { data: balance } = api.savings.getTotalBalance.useQuery();
+	const { startDate, endDate } = currentMonth();
+
+	const { data: sources } = api.transactions.list.useQuery({
+		startDate: startDate,
+		endDate: endDate,
+		category: 'INCOME',
+	});
+
+	const { data: total } = api.transactions.totalForCategory.useQuery({
+		startDate: startDate,
+		endDate: endDate,
+		category: 'INCOME',
+	});
 
 	return (
 		<PlanCard
 			section='savings'
 			contents={{
 				title: 'Savings contributions',
-				totalPayments: total || 0,
+				totalPayments: total?._sum.amount || 0,
 				sources: sources,
-				totalBalance: balance || 0,
-				totalBalanceText: 'Total savings balance',
+				// totalBalance: balance || 0,
+				// totalBalanceText: 'Total savings balance',
 			}}
 		/>
 	);
 };
 
-export { SavingsCard };
+export default SavingsCard;

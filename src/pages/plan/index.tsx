@@ -1,10 +1,10 @@
 import { Heading, Title } from '@todanni/ui';
 import { type NextPage } from 'next';
 import { DefaultLayout } from '~/layouts/DefaultLayout';
-import { IncomeCard } from './cards/IncomeCard';
-import { SpendingCard } from './cards/SpendingCard';
-import { DebtCard } from './cards/DebtCard';
-import { SavingsCard } from './cards/SavingsCard';
+import DebtCard from './cards/DebtCard';
+import IncomeCard from './cards/IncomeCard';
+import SavingsCard from './cards/SavingsCard';
+import SpendingCard from './cards/SpendingCard';
 
 const Plan: NextPage = () => {
 	return (
