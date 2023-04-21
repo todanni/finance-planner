@@ -72,6 +72,49 @@ export const transactionsRouter = createTRPCRouter({
 				data: input,
 			});
 		}),
+
+	delete: protectedProcedure
+		.input(
+			z.object({
+				id: z.number(),
+			}),
+		)
+		.mutation(({ ctx, input }) => {
+			return ctx.prisma.transaction.deleteMany({
+				where: {
+					id: input.id,
+				},
+			});
+		}),
+
+	deleteAll: protectedProcedure.mutation(({ ctx }) => {
+		return ctx.prisma.transaction.deleteMany({
+			where: {
+				userId: ctx.session?.user.id,
+			},
+		});
+	}),
+
+	deleteForDateRange: protectedProcedure
+		.input(
+			z.object({
+				id: z.number(),
+				startDate: z.date(),
+				endDate: z.date(),
+			}),
+		)
+		.mutation(({ ctx, input }) => {
+			return ctx.prisma.transaction.deleteMany({
+				where: {
+					id: input.id,
+					userId: ctx.session?.user.id,
+					createdAt: {
+						lte: input.endDate,
+						gte: input.startDate,
+					},
+				},
+			});
+		}),
 });
 
 export const currentMonth = () => {
