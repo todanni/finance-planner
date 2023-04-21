@@ -29,6 +29,17 @@ export const transactionsRouter = createTRPCRouter({
 			});
 		}),
 
+	count: protectedProcedure.query(({ ctx, input }) => {
+		return ctx.prisma.transaction.aggregate({
+			where: {
+				userId: ctx.session?.user.id,
+			},
+			_sum: {
+				amount: true,
+			},
+		});
+	}),
+
 	listByCategory: protectedProcedure
 		.input(
 			z.object({

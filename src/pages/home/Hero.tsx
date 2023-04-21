@@ -22,6 +22,8 @@ const Hero = () => {
 
 	const { data: sessionData } = useSession();
 
+	console.log(sessionData?.user);
+
 	return (
 		<div className='mt-8 flex flex-col items-center gap-8 rounded-3xl bg-white/5 p-8 shadow-2xl'>
 			<div className='w-full  text-center'>

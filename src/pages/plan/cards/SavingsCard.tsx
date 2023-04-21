@@ -3,18 +3,20 @@ import { api } from '~/utils/api';
 import { currentMonth } from '~/server/api/routers/transactions';
 
 const SavingsCard = () => {
-	const { startDate, endDate } = currentMonth();
+	const date = new Date();
+	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
 	const { data: sources } = api.transactions.list.useQuery({
-		startDate: startDate,
-		endDate: endDate,
-		category: 'INCOME',
+		startDate: firstDay,
+		endDate: lastDay,
+		category: 'SAVINGS',
 	});
 
 	const { data: total } = api.transactions.totalForCategory.useQuery({
-		startDate: startDate,
-		endDate: endDate,
-		category: 'INCOME',
+		startDate: firstDay,
+		endDate: lastDay,
+		category: 'SAVINGS',
 	});
 
 	return (

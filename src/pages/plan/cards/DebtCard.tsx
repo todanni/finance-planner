@@ -1,19 +1,20 @@
 import { PlanCard } from '@todanni/ui';
-import { currentMonth } from '~/server/api/routers/transactions';
 import { api } from '~/utils/api';
 
 const DebtCard = () => {
-	const { startDate, endDate } = currentMonth();
+	const date = new Date();
+	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
 	const { data: sources } = api.transactions.list.useQuery({
-		startDate: startDate,
-		endDate: endDate,
+		startDate: firstDay,
+		endDate: lastDay,
 		category: 'DEBT',
 	});
 
 	const { data: total } = api.transactions.totalForCategory.useQuery({
-		startDate: startDate,
-		endDate: endDate,
+		startDate: firstDay,
+		endDate: lastDay,
 		category: 'DEBT',
 	});
 
