@@ -55,6 +55,32 @@ export const transactionsRouter = createTRPCRouter({
 			});
 		}),
 
+	totalForCategory: protectedProcedure
+		.input(
+			z.object({
+				category: z.nativeEnum(Category),
+				startDate: z.date(),
+				endDate: z.date(),
+			}),
+		)
+		.query(({ ctx, input }) => {
+			return ctx.prisma.transaction.aggregate({
+				where: {
+					userId: ctx.session?.user.id,
+					subCategory: {
+						category: input.category,
+					},
+					createdAt: {
+						lte: input.endDate,
+						gte: input.startDate,
+					},
+				},
+				_sum: {
+					amount: true,
+				},
+			});
+		}),
+
 	create: protectedProcedure
 		.input(
 			z.object({
