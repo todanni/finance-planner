@@ -30,12 +30,12 @@ const BudgetShowcase = () => {
 	];
 
 	return (
-		<div className='grid grid-cols-3 rounded-xl border-2 border-white/5'>
+		<div className='grid grid-cols-3 rounded-xl border-2 border-gray-200 dark:border-white/5'>
 			<div className='col-span-1'>
 				<DonutChart chartInputs={chartInputs} />
 			</div>
 			<div className='col-span-2 flex flex-col self-center p-4'>
-				<p className='text-md mb-2 text-end font-bold text-white'>
+				<p className='text-md mb-2 text-end font-bold text-gray-600 dark:text-white'>
 					Your budget
 				</p>
 				{chartInputs.map((input) => (
@@ -45,9 +45,11 @@ const BudgetShowcase = () => {
 								className='bg-chart-0 h-4 w-4 border border-white'
 								style={{ backgroundColor: `${input.colour}` }}
 							/>
-							<p className='text-base text-white'>{input.label}</p>
+							<p className='text-base text-gray-600 dark:text-white'>
+								{input.label}
+							</p>
 						</div>
-						<p className='text-base text-white'>{`£${input.amount}`}</p>
+						<p className='text-base text-gray-600 dark:text-white'>{`£${input.amount}`}</p>
 					</div>
 				))}
 			</div>

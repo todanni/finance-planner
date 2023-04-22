@@ -6,17 +6,17 @@ const Hero = () => {
 		{
 			title: 'Create a budget',
 			subTitle: 'to control your spending',
-			icon: <Icon object='calculator' size='medium' colour='savings' />,
+			icon: <Icon object='calculator' size='medium' colour='white' />,
 		},
 		{
 			title: 'Build a plan',
 			subTitle: 'for a better future',
-			icon: <Icon object='calendar' size='medium' colour='savings' />,
+			icon: <Icon object='calendar' size='medium' colour='white' />,
 		},
 		{
 			title: 'Watch your money grow',
 			subTitle: 'and make the most of it',
-			icon: <Icon object='presentChart' size='medium' colour='savings' />,
+			icon: <Icon object='presentChart' size='medium' colour='white' />,
 		},
 	];
 
