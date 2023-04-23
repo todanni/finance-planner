@@ -103,8 +103,8 @@ export const transactionsRouter = createTRPCRouter({
 			}),
 		)
 		.mutation(({ ctx, input }) => {
+			console.log(input);
 			input.userId = ctx.session?.user.id;
-
 			return ctx.prisma.transaction.create({
 				data: input,
 			});
