@@ -1,14 +1,10 @@
-import { Button, Heading, Paragraph, Title } from '@todanni/ui';
+import { Heading, Title } from '@todanni/ui';
 import { type NextPage } from 'next';
 import { DefaultLayout } from '~/layouts/DefaultLayout';
 import { useSession } from 'next-auth/react';
-import { PaymentForm } from './forms/PaymentForm';
-import { Category } from '@prisma/client';
-import DebtCard from './cards/DebtCard';
-import IncomeCard from './cards/IncomeCard';
-import SavingsCard from './cards/SavingsCard';
-import SpendingCard from './cards/SpendingCard';
 import React from 'react';
+import { api } from '~/utils/api';
+import { PlanCategory } from './categories/PlanCategory';
 
 const Plan: NextPage = () => {
 	const { data: session } = useSession();
@@ -22,33 +18,26 @@ const Plan: NextPage = () => {
 						View the details for your payments and balances
 					</Heading>
 				</div>
-				<div className='flex justify-end gap-2'>
-					<Paragraph>April 2023</Paragraph>
-				</div>
 			</div>
-			{session && (
-				<div className='my-10 grid grid-cols-2 gap-5'>
-					<IncomeCard />
-					<PaymentForm category={Category.INCOME} />
-					<SpendingCard />
-					<PaymentForm category={Category.BILL} />
-					<DebtCard />
-					<PaymentForm category={Category.DEBT} />
-					<SavingsCard />
-					<PaymentForm category={Category.SAVINGS} />
-				</div>
-			)}
+			{session && <PlanBreakdown />}
 		</DefaultLayout>
 	);
 };
 
-const categoryOptions = [
-	{ name: 'Income', value: Category.INCOME },
-	{ name: 'Bills', value: Category.BILL },
-	{ name: 'Living costs', value: Category.LIVING_COSTS },
-	{ name: 'Discretionary', value: Category.DISCRETIONARY },
-	{ name: 'Debt', value: Category.DEBT },
-	{ name: 'Savings', value: Category.SAVINGS },
-];
+const PlanBreakdown = () => {
+	return (
+		<div className='my-4 rounded-xl border border-stone-600 p-4'>
+			<div className='grid grid-cols-2'>
+				<div className='grid grid-cols-3'>
+					{/* For each category... */}
+					<div className='col-span-3 mb-2 flex justify-between gap-2'>
+						<h1 className='text-extrabold text-lg text-white'>Remaining</h1>
+						<h1 className='text-extrabold text-lg text-white'>£567.89</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
 
 export default Plan;

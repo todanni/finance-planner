@@ -61,7 +61,7 @@ model VerificationToken {
 model Transaction {
   id        Int      @id @default(autoincrement())
   amount    Float
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) //PaidOn 
   name      String
 
   subCategoryId Int

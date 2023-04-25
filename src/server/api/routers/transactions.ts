@@ -6,7 +6,6 @@ export const transactionsRouter = createTRPCRouter({
 	list: protectedProcedure
 		.input(
 			z.object({
-				category: z.nativeEnum(Category),
 				startDate: z.date(),
 				endDate: z.date(),
 			}),
@@ -15,9 +14,6 @@ export const transactionsRouter = createTRPCRouter({
 			return ctx.prisma.transaction.findMany({
 				where: {
 					userId: ctx.session?.user.id,
-					subCategory: {
-						category: input.category,
-					},
 					createdAt: {
 						lte: input.endDate,
 						gte: input.startDate,
