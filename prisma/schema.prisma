@@ -43,11 +43,11 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  accounts      Account[]
-  sessions      Session[]
-  balances      Balance[]
-  payments      Payment[]
-  goals         Goal[]
+
+  accounts     Account[]
+  sessions     Session[]
+  transactions Transaction[]
+  balances     Balance[]
 }
 
 model VerificationToken {
@@ -58,83 +58,63 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Balance {
-  id            Int         @id @default(autoincrement())
-  userId        String
-  amount        Float
-  createdAt     DateTime    @default(now())
-  endDate       DateTime?
-  interestRate  Float?
-  name          String
-  startDate     DateTime?
-  subCategoryId Int
-  user          User        @relation(fields: [userId], references: [id])
-  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
-  goalId        Int?
-  goal          Goal?        @relation(fields: [goalId], references: [id])
-
-  @@index([goalId])
-  @@index([subCategoryId])
-  @@index([userId])
-}
-
-model Payment {
-  id        Int       @id @default(autoincrement())
+model Transaction {
+  id        Int      @id @default(autoincrement())
   amount    Float
-  createdAt DateTime  @default(now())
+  createdAt DateTime @default(now()) //PaidOn 
   name      String
-  startDate DateTime?
-  endDate   DateTime?
-  isNet     Boolean
-  repeats   Boolean
-  repeatsIn Int
 
   subCategoryId Int
   subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
-
-  // categoryId Int
-  // category   Category @relation(fields: [categoryId], references: [id])
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
-  goalId Int?
-  goal   Goal? @relation(fields: [goalId], references: [id])
+  balance   Balance? @relation(fields: [balanceId], references: [id])
+  balanceId Int?
 
-  @@index([goalId])
-  // @@index([categoryId])
-  @@index([subCategoryId])
   @@index([userId])
+  @@index([balanceId])
+  @@index([subCategoryId])
 }
 
-model Category {
-  id            Int           @id @default(autoincrement())
-  name          String
-  subCategories SubCategory[]
-  // payments Payment[]
+model Balance {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  name         String
+  interestRate Float
+
+  subCategoryId Int
+  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
+
+  startDate DateTime?
+  endDate   DateTime?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  transactions Transaction[]
+
+  @@index([userId])
+  @@index([subCategoryId])
+}
+
+enum Category {
+  INCOME
+  BILL
+  DISCRETIONARY
+  LIVING_COSTS
+  DEBT
+  SAVINGS
+  TAX
 }
 
 model SubCategory {
-  id         Int       @id @default(autoincrement())
-  name       String
-  categoryId Int
-  category   Category  @relation(fields: [categoryId], references: [id])
-  payments   Payment[]
-  balances   Balance[]
+  id       Int      @id @default(autoincrement())
+  name     String
+  locale   String   @default("UK")
+  category Category
 
-  @@index([categoryId])
-}
-
-model Goal {
-  id     Int    @id @default(autoincrement())
-  amount Float 
-  deadline DateTime?
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-
-  payments Payment[]
-  balances Balance[]
-
-  @@index([userId])
+  transactions Transaction[]
+  balances     Balance[]
 }
