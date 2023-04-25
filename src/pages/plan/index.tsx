@@ -3,8 +3,6 @@ import { type NextPage } from 'next';
 import { DefaultLayout } from '~/layouts/DefaultLayout';
 import { useSession } from 'next-auth/react';
 import React from 'react';
-import { api } from '~/utils/api';
-import { PlanCategory } from './categories/PlanCategory';
 
 const Plan: NextPage = () => {
 	const { data: session } = useSession();

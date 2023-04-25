@@ -1,6 +1,5 @@
 import { PlanCard } from '@todanni/ui';
 import { api } from '~/utils/api';
-import { currentMonth } from '~/server/api/routers/transactions';
 
 const SpendingCard = () => {
 	const date = new Date();

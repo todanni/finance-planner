@@ -1,13 +1,7 @@
 import { PlanCard } from '@todanni/ui';
 import { api } from '~/utils/api';
 
-// type IncomeCardProps = {
-// 	range: string;
-// };
-
 const IncomeCard = () => {
-	// const { startDate, endDate } = currentMonth();
-
 	const date = new Date();
 	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);

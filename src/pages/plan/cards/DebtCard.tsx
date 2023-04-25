@@ -25,8 +25,6 @@ const DebtCard = () => {
 				title: 'Debt repayments',
 				totalPayments: total?._sum.amount || 0,
 				sources: sources,
-				// totalBalance: balance || 0,
-				// totalBalanceText: 'Total debt balance',
 			}}
 		/>
 	);

@@ -19,14 +19,6 @@ const PlanShowcase = () => {
 				],
 				totalBalance: 21081.49,
 				totalBalanceText: 'Total savings balance',
-				goals: [
-					{
-						name: 'Help to buy ISA',
-						amount: 4000.01,
-						timeLeft: '6 months left',
-						onTrack: true,
-					},
-				],
 			}}
 		/>
 	);
