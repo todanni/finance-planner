@@ -1,4 +1,6 @@
-export type Totals = {
+import { SubCategory, Transaction } from '@prisma/client';
+
+type Totals = {
 	INCOME: number;
 	BILL: number;
 	LIVING_COSTS: number;
@@ -9,3 +11,17 @@ export type Totals = {
 	SPENDING: number;
 	hasResults: boolean;
 };
+
+type SpendingPayments = {
+	bills: (Transaction & {
+		subCategory: SubCategory;
+	})[];
+	lc: (Transaction & {
+		subCategory: SubCategory;
+	})[];
+	discr: (Transaction & {
+		subCategory: SubCategory;
+	})[];
+};
+
+export { type Totals, type SpendingPayments };

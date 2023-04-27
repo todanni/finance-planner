@@ -1,7 +1,7 @@
 import { Category } from '@prisma/client';
 import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc';
-import { Totals } from '~/types/Totals';
+import { type SpendingPayments, type Totals } from '~/types/Totals';
 
 export const transactionsRouter = createTRPCRouter({
 	list: protectedProcedure
@@ -67,8 +67,8 @@ export const transactionsRouter = createTRPCRouter({
 				endDate: z.date(),
 			}),
 		)
-		.query(({ ctx, input }) => {
-			return ctx.prisma.transaction.findMany({
+		.query(async ({ ctx, input }) => {
+			const result = await ctx.prisma.transaction.findMany({
 				where: {
 					userId: ctx.session?.user.id,
 					createdAt: {
@@ -89,6 +89,27 @@ export const transactionsRouter = createTRPCRouter({
 					subCategory: true,
 				},
 			});
+			const payments: SpendingPayments = {
+				bills: [],
+				lc: [],
+				discr: [],
+			};
+
+			result.forEach((transaction) => {
+				switch (transaction.subCategory.category) {
+					case Category.BILL:
+						payments.bills.push(transaction);
+						break;
+					case Category.LIVING_COSTS:
+						payments.lc.push(transaction);
+						break;
+					case Category.DISCRETIONARY:
+						payments.discr.push(transaction);
+						break;
+				}
+			});
+
+			return payments;
 		}),
 
 	totalForCategory: protectedProcedure
