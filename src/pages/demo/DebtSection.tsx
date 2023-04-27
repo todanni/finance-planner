@@ -86,33 +86,4 @@ const DebtForm = () => {
 	);
 };
 
-const DebtList = () => {
-	const date = new Date();
-	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-	const { data: debtTransactions } = api.transactions.listByCategory.useQuery({
-		category: Category.DEBT,
-		startDate: firstDay,
-		endDate: lastDay,
-	});
-
-	return (
-		<div>
-			<h1 className='font-bold text-green-600'>Debt sources</h1>
-			<div className='mt-2 grid grid-cols-3 gap-2'>
-				{debtTransactions?.map((tx) => (
-					<>
-						<p>{tx.subCategory.name}</p>
-						<p className='text-right'>£{tx.amount.toLocaleString('en-UK')}</p>
-						<p className='text-right'>
-							{tx.createdAt.toLocaleDateString('en-UK')}
-						</p>
-					</>
-				))}
-			</div>
-		</div>
-	);
-};
-
-export { DebtForm, DebtList };
+export default DebtForm;

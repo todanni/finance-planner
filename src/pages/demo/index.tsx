@@ -1,8 +1,8 @@
 import { type NextPage } from 'next';
 import { DefaultLayout } from '~/layouts/DefaultLayout';
-import { IncomeForm, IncomeList } from './IncomeSection';
-import { SpendingForm, SpendingList } from './SpendingSection';
-import { DebtForm, DebtList } from './DebtSection';
+import DebtForm from './DebtSection';
+import IncomeForm from './IncomeSection';
+import SpendingForm from './SpendingSection';
 
 const Demo: NextPage = () => {
 	return (
@@ -10,19 +10,16 @@ const Demo: NextPage = () => {
 			<div className='mt-4 rounded-xl border-2 border-gray-700 p-6 text-white'>
 				<div className='grid grid-cols-2'>
 					<IncomeForm />
-					<IncomeList />
 				</div>
 			</div>
 			<div className='mt-4 rounded-xl border-2 border-gray-700 p-6 text-white'>
 				<div className='grid grid-cols-2'>
 					<SpendingForm />
-					<SpendingList />
 				</div>
 			</div>
 			<div className='mt-4 rounded-xl border-2 border-gray-700 p-6 text-white'>
 				<div className='grid grid-cols-2'>
 					<DebtForm />
-					<DebtList />
 				</div>
 			</div>
 		</DefaultLayout>

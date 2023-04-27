@@ -14,17 +14,17 @@ export const navlinks = [
 	},
 	{
 		// location: 'track',
-		location: 'home',
+		location: 'track',
 		name: 'Track',
 	},
 	{
 		// location: 'blog',
-		location: 'home',
+		location: 'blog',
 		name: 'Blog',
 	},
 	{
 		// location: 'about',
-		location: 'home',
+		location: 'about',
 		name: 'About',
 	},
 ];

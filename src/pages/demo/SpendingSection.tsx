@@ -75,12 +75,4 @@ const SpendingForm = () => {
 	);
 };
 
-const SpendingList = () => {
-	return (
-		<div>
-			<h1 className='font-bold text-green-600'>Bills</h1>
-		</div>
-	);
-};
-
-export { SpendingForm, SpendingList };
+export default SpendingForm;

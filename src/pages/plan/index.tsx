@@ -3,12 +3,12 @@ import { type NextPage } from 'next';
 import { useState } from 'react';
 import { DefaultLayout } from '~/layouts/DefaultLayout';
 import { DateTime } from 'luxon';
-import { OverviewPanel } from './OverviewPanel';
-import { IncomePanel } from './IncomePanel';
-import { SpendingPanel } from './SpendingPanel';
-import { DebtPanel } from './DebtPanel';
-import { SavingsPanel } from './SavingsPanel';
 import { signIn, useSession } from 'next-auth/react';
+import { DebtPanel } from '~/components/panels/DebtPanel';
+import { IncomePanel } from '~/components/panels/IncomePanel';
+import { OverviewPanel } from '~/components/panels/OverviewPanel';
+import { SavingsPanel } from '~/components/panels/SavingsPanel';
+import { SpendingPanel } from '~/components/panels/SpendingPanel';
 
 const Plan: NextPage = () => {
 	const panels = ['Overview', 'Income', 'Spending', 'Debt', 'Savings'] as const;
@@ -51,7 +51,6 @@ const Plan: NextPage = () => {
 						</select>
 					)}
 				</div>
-
 				{sessionData && (
 					<>
 						<div className='flex justify-between border-b pb-2'>
