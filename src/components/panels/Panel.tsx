@@ -39,7 +39,7 @@ const Panel = ({ isLoading, categories }: PanelCategoryProps) => {
 								No {category.category.toLowerCase()} payments
 							</Heading>
 							<Button size='small'>
-								Add {category.category.toLowerCase()} data
+								Add {category.category.toLowerCase()} payment
 							</Button>
 						</div>
 					)}
