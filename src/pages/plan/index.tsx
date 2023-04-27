@@ -51,7 +51,6 @@ const Plan: NextPage = () => {
 						</select>
 					)}
 				</div>
-				{/* onClick={sessionData ? () => void signOut() : () => void signIn()}> */}
 
 				{sessionData && (
 					<>

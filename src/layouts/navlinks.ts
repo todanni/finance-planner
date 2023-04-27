@@ -4,7 +4,7 @@ export const navlinks = [
 		name: 'Home',
 	},
 	{
-		// location: 'budget',
+		location: 'budget',
 		name: 'Budget',
 	},
 	{

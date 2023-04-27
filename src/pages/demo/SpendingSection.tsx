@@ -94,17 +94,6 @@ const SpendingList = () => {
 	return (
 		<div>
 			<h1 className='font-bold text-green-600'>Bills</h1>
-			<div className='mt-2 grid grid-cols-3 gap-2'>
-				{spendingTransactions?.map((tx) => (
-					<>
-						<p>{tx.subCategory.name}</p>
-						<p className='text-right'>£{tx.amount.toLocaleString('en-UK')}</p>
-						<p className='text-right'>
-							{tx.createdAt.toLocaleDateString('en-UK')}
-						</p>
-					</>
-				))}
-			</div>
 		</div>
 	);
 };

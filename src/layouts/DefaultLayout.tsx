@@ -1,5 +1,6 @@
 import { Navbar, SimpleFooter } from '@todanni/ui';
 import { type ReactNode } from 'react';
+import { navlinks } from './navlinks';
 
 type Props = {
 	children: ReactNode;
@@ -11,7 +12,7 @@ const DefaultLayout = ({ children }: Props) => (
 		<div className='flex h-full flex-col items-center justify-between'>
 			<div className='m-4 w-11/12 max-w-screen-2xl'>
 				<Navbar
-					links={[]}
+					links={navlinks}
 					currentLocation='plan'
 					variant='title'
 					firstWord='Finance'
