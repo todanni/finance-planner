@@ -1,5 +1,13 @@
-import { Heading, Icon, type IconObject } from '@todanni/ui';
+import {
+	Heading,
+	Icon,
+	Paragraph,
+	type IconObject,
+	DonutChart,
+	Button,
+} from '@todanni/ui';
 import { type DateTime } from 'luxon';
+import { type Totals } from '~/types/Totals';
 import { api } from '~/utils/api';
 
 type PanelProps = {
@@ -34,17 +42,78 @@ const OverviewPanel = ({ dateRange }: PanelProps) => {
 
 	if (!totals?.hasResults) {
 		return (
-			<div className='mt-2'>
+			<div className='mt-2 flex justify-between'>
 				<Heading size='medium' className='w-1/2'>
 					No payments found for this month. Do you want to add them or import
 					them from a different month?
 				</Heading>
+				<div className='grid grid-cols-2 gap-2'>
+					<Button>Input data</Button>
+					<Button>Import from month</Button>
+				</div>
 			</div>
 		);
 	}
 
 	return (
-		<div className='mt-2 flex w-1/2 flex-col gap-2'>
+		<div className='grid grid-cols-2'>
+			<PaymentsSummary totals={totals} />
+			<PaymentsInsights totals={totals} />
+		</div>
+	);
+};
+
+const PaymentsInsights = ({ totals }: SummaryProps) => {
+	return (
+		<div className='mt-2 flex flex-col items-end'>
+			<Heading size='large'>Insights</Heading>
+			<div className='flex h-2/3'>
+				<DonutChart
+					chartInputs={[
+						{ label: 'Debt', amount: totals.DEBT, colour: '#dc2626' },
+						{ label: 'Savings', amount: totals.SAVINGS, colour: '#059669' },
+						{ label: 'Bills', amount: totals.BILL, colour: '#eab308' },
+						{
+							label: 'Living costs',
+							amount: totals.LIVING_COSTS,
+							colour: '#fde047',
+						},
+						{
+							label: 'Discretionary',
+							amount: totals.DISCRETIONARY,
+							colour: '#fef08a',
+						},
+					]}
+				/>
+			</div>
+
+			<Paragraph>
+				{Math.round((totals.BILL / totals.INCOME) * 100)}% of Income spent on
+				Needs
+			</Paragraph>
+			<Paragraph>
+				{Math.round((totals.DISCRETIONARY / totals.INCOME) * 100)}% of Income
+				spent on Wants
+			</Paragraph>
+			<Paragraph>
+				{Math.round((totals.DEBT / totals.INCOME) * 100)}% of Income spent on
+				Debt
+			</Paragraph>
+			<Paragraph>
+				{Math.round((totals.SAVINGS / totals.INCOME) * 100)}% of Income spent on
+				Savings
+			</Paragraph>
+		</div>
+	);
+};
+
+type SummaryProps = {
+	totals: Totals;
+};
+
+const PaymentsSummary = ({ totals }: SummaryProps) => {
+	return (
+		<div className='mt-2 flex flex-col gap-2'>
 			<Heading size='large'>Payments summary</Heading>
 			<PaymentsHeading
 				iconObject='money'

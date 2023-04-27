@@ -1,6 +1,7 @@
 import { Category } from '@prisma/client';
 import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc';
+import { Totals } from '~/types/Totals';
 
 export const transactionsRouter = createTRPCRouter({
 	list: protectedProcedure
@@ -137,7 +138,7 @@ export const transactionsRouter = createTRPCRouter({
 				},
 			});
 
-			const totals = {
+			const totals: Totals = {
 				INCOME: 0,
 				BILL: 0,
 				LIVING_COSTS: 0,

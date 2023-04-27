@@ -89,7 +89,7 @@ const IncomeForm = () => {
 
 	return (
 		<form
-			className='flex w-1/2 flex-col gap-2'
+			className='flex flex-col gap-2'
 			// eslint-disable-next-line @typescript-eslint/no-misused-promises
 			onSubmit={handleSubmit(onSubmit)}>
 			<label>Select category</label>
