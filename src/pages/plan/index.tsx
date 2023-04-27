@@ -1,40 +1,52 @@
-import { Heading, Title } from '@todanni/ui';
+import { Heading, Icon, Title } from '@todanni/ui';
 import { type NextPage } from 'next';
+import { useState } from 'react';
 import { DefaultLayout } from '~/layouts/DefaultLayout';
-import { useSession } from 'next-auth/react';
-import React from 'react';
+import { DateTime } from 'luxon';
+import { OverviewPanel } from './OverviewPanel';
+
+// const panels = ['Overview', 'Income', 'Spending', 'Debt', 'Savings'] as const;
 
 const Plan: NextPage = () => {
-	const { data: session } = useSession();
+	const [currentPanel, setCurrentPanel] = useState('Overview');
+
+	const [range, setRange] = useState(DateTime.now());
+
+	const onDateChange = (op: 'prev' | 'next') => {
+		if (op === 'prev') {
+			setRange(range.minus({ month: 1 }));
+		} else {
+			setRange(range.plus({ month: 1 }));
+		}
+	};
 
 	return (
-		<DefaultLayout title='Plan | Finance Planner'>
-			<div className='mt-8 flex items-end justify-between border-b border-stone-500 pb-2'>
-				<div>
-					<Title size='large'>Your plan</Title>
-					<Heading size='medium' colour='white' className=''>
-						View the details for your payments and balances
+		<DefaultLayout>
+			<div className='mt-4 rounded-xl shadow-inner'>
+				<Title>Your plan</Title>
+				<div className='flex justify-between border-b pb-2'>
+					<Heading size='large'>
+						Details of your payments, balances and goals
 					</Heading>
-				</div>
-			</div>
-			{session && <PlanBreakdown />}
-		</DefaultLayout>
-	);
-};
-
-const PlanBreakdown = () => {
-	return (
-		<div className='my-4 rounded-xl border border-stone-600 p-4'>
-			<div className='grid grid-cols-2'>
-				<div className='grid grid-cols-3'>
-					{/* For each category... */}
-					<div className='col-span-3 mb-2 flex justify-between gap-2'>
-						<h1 className='text-extrabold text-lg text-white'>Remaining</h1>
-						<h1 className='text-extrabold text-lg text-white'>£567.89</h1>
+					<div className='flex gap-2'>
+						<Icon
+							object='arrowLeft'
+							colour='white'
+							size='xs'
+							onClick={() => onDateChange('prev')}
+						/>
+						<Heading size='small'>{range.toFormat('LLLL yyyy')}</Heading>
+						<Icon
+							object='arrowRight'
+							colour='white'
+							size='xs'
+							onClick={() => onDateChange('next')}
+						/>
 					</div>
 				</div>
+				<OverviewPanel dateRange={range} />
 			</div>
-		</div>
+		</DefaultLayout>
 	);
 };
 

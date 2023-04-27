@@ -26,12 +26,9 @@ export const transactionsRouter = createTRPCRouter({
 		}),
 
 	count: protectedProcedure.query(({ ctx }) => {
-		return ctx.prisma.transaction.aggregate({
+		return ctx.prisma.transaction.count({
 			where: {
 				userId: ctx.session?.user.id,
-			},
-			_sum: {
-				amount: true,
 			},
 		});
 	}),
@@ -54,6 +51,37 @@ export const transactionsRouter = createTRPCRouter({
 					createdAt: {
 						lte: input.endDate,
 						gte: input.startDate,
+					},
+				},
+				include: {
+					subCategory: true,
+				},
+			});
+		}),
+
+	listForSpending: protectedProcedure
+		.input(
+			z.object({
+				startDate: z.date(),
+				endDate: z.date(),
+			}),
+		)
+		.query(({ ctx, input }) => {
+			return ctx.prisma.transaction.findMany({
+				where: {
+					userId: ctx.session?.user.id,
+					createdAt: {
+						lte: input.endDate,
+						gte: input.startDate,
+					},
+					subCategory: {
+						category: {
+							in: [
+								Category.BILL,
+								Category.LIVING_COSTS,
+								Category.DISCRETIONARY,
+							],
+						},
 					},
 				},
 				include: {
@@ -88,6 +116,56 @@ export const transactionsRouter = createTRPCRouter({
 			});
 		}),
 
+	totalPerCategory: protectedProcedure
+		.input(
+			z.object({
+				startDate: z.date(),
+				endDate: z.date(),
+			}),
+		)
+		.query(async ({ ctx, input }) => {
+			const result = await ctx.prisma.transaction.findMany({
+				where: {
+					userId: ctx.session?.user.id,
+					createdAt: {
+						lte: input.endDate,
+						gte: input.startDate,
+					},
+				},
+				include: {
+					subCategory: true,
+				},
+			});
+
+			const totals = {
+				INCOME: 0,
+				BILL: 0,
+				LIVING_COSTS: 0,
+				DISCRETIONARY: 0,
+				DEBT: 0,
+				SAVINGS: 0,
+				TAX: 0,
+				SPENDING: 0,
+				hasResults: false,
+			};
+
+			if (result.length === 0) {
+				return totals;
+			}
+
+			// Add up all the amounts for each category
+			result.forEach((transaction) => {
+				totals[transaction.subCategory.category] += transaction.amount;
+			});
+
+			totals.SPENDING =
+				totals.BILL + totals.DISCRETIONARY + totals.LIVING_COSTS;
+
+			totals.hasResults = true;
+
+			return totals;
+		}),
+
 	create: protectedProcedure
 		.input(
 			z.object({
@@ -96,10 +174,10 @@ export const transactionsRouter = createTRPCRouter({
 				subCategoryId: z.number(),
 				userId: z.string().default(''),
 				balanceId: z.number().optional(),
+				createdAt: z.date().optional(),
 			}),
 		)
 		.mutation(({ ctx, input }) => {
-			console.log(input);
 			input.userId = ctx.session?.user.id;
 			return ctx.prisma.transaction.create({
 				data: input,

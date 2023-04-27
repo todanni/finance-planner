@@ -1,7 +1,10 @@
 import { Title, Paragraph, Icon, Button, Heading } from '@todanni/ui';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 const Hero = () => {
+	const router = useRouter();
+
 	const features = [
 		{
 			title: 'Create a budget',
@@ -21,8 +24,6 @@ const Hero = () => {
 	];
 
 	const { data: sessionData } = useSession();
-
-	console.log(sessionData?.user);
 
 	return (
 		<div className='mt-8 flex flex-col items-center gap-8 rounded-3xl bg-white/5 p-8 shadow-2xl'>
@@ -58,7 +59,11 @@ const Hero = () => {
 					onClick={sessionData ? () => void signOut() : () => void signIn()}>
 					{sessionData ? 'View my plan' : 'Create account'}
 				</Button>
-				<Button size='medium' intent='secondary'>
+				<Button
+					size='medium'
+					intent='secondary'
+					// eslint-disable-next-line @typescript-eslint/no-misused-promises
+					onClick={() => router.push('/demo')}>
 					Preview demo
 				</Button>
 			</div>

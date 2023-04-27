@@ -4,23 +4,27 @@ export const navlinks = [
 		name: 'Home',
 	},
 	{
-		location: 'budget',
+		// location: 'budget',
 		name: 'Budget',
 	},
 	{
+		// location: 'plan',
 		location: 'plan',
 		name: 'Plan',
 	},
 	{
-		location: 'track',
+		// location: 'track',
+		location: 'home',
 		name: 'Track',
 	},
 	{
-		location: 'blog',
+		// location: 'blog',
+		location: 'home',
 		name: 'Blog',
 	},
 	{
-		location: 'about',
+		// location: 'about',
+		location: 'home',
 		name: 'About',
 	},
 ];
