@@ -16,12 +16,7 @@ const SpendingForm = () => {
 
 	const ctx = api.useContext();
 
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm<SpendingFormInputs>({
+	const { register, handleSubmit, reset } = useForm<SpendingFormInputs>({
 		defaultValues: {
 			subCategoryId: 1,
 			amount: 1000,
@@ -81,16 +76,6 @@ const SpendingForm = () => {
 };
 
 const SpendingList = () => {
-	const date = new Date();
-	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-	const { data: spendingTransactions } =
-		api.transactions.listForSpending.useQuery({
-			startDate: firstDay,
-			endDate: lastDay,
-		});
-
 	return (
 		<div>
 			<h1 className='font-bold text-green-600'>Bills</h1>

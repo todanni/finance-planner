@@ -22,13 +22,7 @@ const IncomeForm = () => {
 
 	const ctx = api.useContext();
 
-	const {
-		register,
-		handleSubmit,
-		watch,
-		reset,
-		formState: { errors },
-	} = useForm<IncomeFormInputs>({
+	const { register, handleSubmit, watch, reset } = useForm<IncomeFormInputs>({
 		defaultValues: {
 			subCategoryId: 1,
 			amount: 1000,

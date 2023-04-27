@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 async function main() {
 	const category = await prisma.transaction.findMany({});
+	console.log(category);
 }
 main()
 	.then(async () => {

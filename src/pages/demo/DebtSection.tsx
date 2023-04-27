@@ -17,13 +17,7 @@ const DebtForm = () => {
 
 	const ctx = api.useContext();
 
-	const {
-		register,
-		handleSubmit,
-		watch,
-		reset,
-		formState: { errors },
-	} = useForm<DebtFormInputs>({
+	const { register, handleSubmit, watch, reset } = useForm<DebtFormInputs>({
 		defaultValues: {},
 	});
 
@@ -90,10 +84,6 @@ const DebtForm = () => {
 			</Button>
 		</form>
 	);
-};
-
-const DebtBalanceForm = () => {
-	return <></>;
 };
 
 const DebtList = () => {

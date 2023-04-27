@@ -1,4 +1,4 @@
-import { SubCategory, Transaction } from '@prisma/client';
+import { type SubCategory, type Transaction } from '@prisma/client';
 
 type Totals = {
 	INCOME: number;
