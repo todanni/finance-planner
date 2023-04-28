@@ -31,7 +31,7 @@ const Plan: NextPage = () => {
 
 	return (
 		<DefaultLayout>
-			<div className='mt-4 rounded-xl shadow-inner'>
+			<div className='mt-4 rounded-xl'>
 				<div className='flex justify-between pb-2'>
 					<Title>Your plan</Title>
 					{!sessionData && (

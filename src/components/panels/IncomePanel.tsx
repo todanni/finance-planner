@@ -23,25 +23,44 @@ const IncomePanel = ({ dateRange }: PanelProps) => {
 		});
 
 	return (
-		<div className='mt-2 flex gap-8'>
-			<Panel
-				title='Income'
-				isLoading={incomeLoading && taxLoading}
-				categories={[
-					{
-						title: 'Income',
-						category: Category.INCOME,
-						payments: incomePayments,
-					},
-					{
-						title: 'Income deductions',
-						category: Category.TAX,
-						payments: taxPayments,
-					},
-				]}
-			/>
-		</div>
+		<Panel
+			title='Income'
+			isLoading={incomeLoading && taxLoading}
+			categories={[
+				{
+					title: 'Income',
+					category: Category.INCOME,
+					payments: incomePayments,
+				},
+				{
+					title: 'Income deductions',
+					category: Category.TAX,
+					payments: taxPayments,
+				},
+			]}
+		/>
 	);
 };
 
 export { IncomePanel };
+
+{
+	/* <div className='flex flex-col'>
+				<div className='flex justify-end gap-2'>
+					<Button className='focus:outline-none inline-flex items-center text-sm font-medium text-white '>
+						Add income
+						<span className='ml-2 inline-flex items-center justify-center'>
+							<Icon object='money' size='xs' colour='white' />
+						</span>
+					</Button>
+					<Button className='focus:outline-none inline-flex items-center text-sm font-medium text-white '>
+						Add deduction
+						<span className='ml-2 inline-flex items-center justify-center'>
+							<Icon object='tax' size='xs' colour='white' />
+						</span>
+					</Button>
+				</div>
+
+				{form && <PaymentForm category={form} />}
+			</div> */
+}

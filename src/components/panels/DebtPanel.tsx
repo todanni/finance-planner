@@ -15,20 +15,27 @@ const DebtPanel = ({ dateRange }: PanelProps) => {
 			category: Category.DEBT,
 		});
 
+	const { data: balances } = api.balance.listByCategory.useQuery({
+		category: Category.DEBT,
+	});
+
 	return (
-		<div className='mt-2 flex gap-8'>
-			<Panel
-				title='Debt'
-				isLoading={isLoading}
-				categories={[
-					{
-						title: 'Debt repayments',
-						category: Category.DEBT,
-						payments: payments,
-					},
-				]}
-			/>
-		</div>
+		<Panel
+			title='Debt'
+			isLoading={isLoading}
+			categories={[
+				{
+					title: 'Debt repayments',
+					category: Category.DEBT,
+					payments: payments,
+				},
+			]}
+			balance={{
+				title: 'Debt balance',
+				category: Category.DEBT,
+				balances: balances,
+			}}
+		/>
 	);
 };
 

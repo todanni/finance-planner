@@ -15,29 +15,27 @@ const SpendingPanel = ({ dateRange }: PanelProps) => {
 		});
 
 	return (
-		<div className='mt-2 flex gap-8'>
-			<Panel
-				title='Income'
-				isLoading={isLoading}
-				categories={[
-					{
-						title: 'Living costs',
-						category: Category.LIVING_COSTS,
-						payments: payments?.lc,
-					},
-					{
-						title: 'Bills',
-						category: Category.BILL,
-						payments: payments?.bills,
-					},
-					{
-						title: 'Discretionary',
-						category: Category.DISCRETIONARY,
-						payments: payments?.discr,
-					},
-				]}
-			/>
-		</div>
+		<Panel
+			title='Income'
+			isLoading={isLoading}
+			categories={[
+				{
+					title: 'Living costs',
+					category: Category.LIVING_COSTS,
+					payments: payments?.lc,
+				},
+				{
+					title: 'Bills',
+					category: Category.BILL,
+					payments: payments?.bills,
+				},
+				{
+					title: 'Discretionary',
+					category: Category.DISCRETIONARY,
+					payments: payments?.discr,
+				},
+			]}
+		/>
 	);
 };
 

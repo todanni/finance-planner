@@ -69,6 +69,9 @@ export const transactionsRouter = createTRPCRouter({
 		)
 		.query(async ({ ctx, input }) => {
 			const result = await ctx.prisma.transaction.findMany({
+				orderBy: {
+					subCategoryId: 'asc',
+				},
 				where: {
 					userId: ctx.session?.user.id,
 					createdAt: {
