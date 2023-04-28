@@ -83,6 +83,7 @@ model Balance {
   createdAt    DateTime @default(now())
   name         String
   interestRate Float
+  minPayment  Float
 
   subCategoryId Int
   subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])

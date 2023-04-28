@@ -20,4 +20,14 @@ export const subcategoryRouter = createTRPCRouter({
 				},
 			});
 		}),
+
+	listForBalances: publicProcedure.query(({ ctx }) => {
+		return ctx.prisma.subCategory.findMany({
+			where: {
+				category: {
+					in: [Category.DEBT, Category.SAVINGS],
+				},
+			},
+		});
+	}),
 });

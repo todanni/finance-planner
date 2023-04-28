@@ -5,6 +5,7 @@ import {
 	type IconObject,
 	DonutChart,
 	Button,
+	PlanCard,
 } from '@todanni/ui';
 import { type DateTime } from 'luxon';
 import { type Totals } from '~/types/Totals';
@@ -35,7 +36,7 @@ const OverviewPanel = ({ dateRange }: PanelProps) => {
 		return (
 			<div className='mt-2'>
 				<Heading size='large'>Overview</Heading>
-				{totalsLoading && <div>Loading...</div>}
+				<div>Loading...</div>
 			</div>
 		);
 	}
@@ -59,6 +60,37 @@ const OverviewPanel = ({ dateRange }: PanelProps) => {
 		<div className='grid grid-cols-2'>
 			<PaymentsSummary totals={totals} />
 			<PaymentsInsights totals={totals} />
+		</div>
+	);
+};
+
+const BalanceSummary = () => {
+	const { isLoading } = api.balance.list.useQuery();
+
+	if (isLoading) {
+		return (
+			<div className='mt-4'>
+				<Heading size='large'>Loading balances</Heading>
+			</div>
+		);
+	}
+
+	return (
+		<div className='mt-4 flex flex-col gap-4'>
+			<PlanCard
+				section='debt'
+				contents={{
+					title: 'Debt balance',
+					totalPayments: 292426.36,
+				}}
+			/>
+			<PlanCard
+				section='savings'
+				contents={{
+					title: 'Savings balance',
+					totalPayments: 8863.82,
+				}}
+			/>
 		</div>
 	);
 };
@@ -121,7 +153,7 @@ const PaymentsSummary = ({ totals }: SummaryProps) => {
 				title='Income'
 				total={totals.INCOME}
 			/>
-			<PaymentsSubheading title='Tax' total={totals.TAX} />
+			<PaymentsSubheading title='Pre-tax deductions' total={totals.TAX} />
 			<PaymentsHeading
 				iconObject='wallet'
 				colour='spending'
@@ -143,10 +175,7 @@ const PaymentsSummary = ({ totals }: SummaryProps) => {
 				title='Savings contributions'
 				total={totals.SAVINGS}
 			/>
-			<div className='mt-4 flex justify-between'>
-				<Heading size='large'>Balance overview</Heading>
-				<Heading size='medium'>Coming soon!</Heading>
-			</div>
+			<BalanceSummary />
 		</div>
 	);
 };
