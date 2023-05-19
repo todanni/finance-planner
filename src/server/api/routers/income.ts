@@ -2,22 +2,19 @@ import { Category } from '@prisma/client';
 import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc';
 
-export const totalsRouter = createTRPCRouter({
-	income: protectedProcedure
-		// Income payments, benefits, deductions
+export const incomeRouter = createTRPCRouter({
+	overview: protectedProcedure
 		.input(
 			z.object({
 				startDate: z.date(),
 				endDate: z.date(),
 			}),
 		)
-		.query(async ({ ctx, input }) => {
-			const incomeTotal = await ctx.prisma.transaction.aggregate({
+		.query(({ ctx, input }) => {
+			return ctx.prisma.transaction.aggregate({
 				where: {
 					userId: ctx.session?.user.id,
-					subCategory: {
-						category: Category.INCOME,
-					},
+					category: Category.INCOME,
 					createdAt: {
 						lte: input.endDate,
 						gte: input.startDate,
@@ -27,46 +24,21 @@ export const totalsRouter = createTRPCRouter({
 					amount: true,
 				},
 			});
-
-			const taxTotal = await ctx.prisma.transaction.aggregate({
-				where: {
-					userId: ctx.session?.user.id,
-					subCategory: {
-						category: Category.TAX,
-					},
-					createdAt: {
-						lte: input.endDate,
-						gte: input.startDate,
-					},
-				},
-				_sum: {
-					amount: true,
-				},
-			});
-
-			const totals = {
-				income: incomeTotal._sum.amount,
-				deductions: taxTotal._sum.amount,
-				benefits: 0,
-			};
-
-			return totals;
 		}),
-	savings: protectedProcedure
-		// Income payments, benefits, deductions
+
+	// Sum of all income transactions + Sum of all tax transactions(deductions)
+	net: protectedProcedure
 		.input(
 			z.object({
 				startDate: z.date(),
 				endDate: z.date(),
 			}),
 		)
-		.query(async ({ ctx, input }) => {
-			const result = await ctx.prisma.transaction.aggregate({
+		.query(({ ctx, input }) => {
+			return ctx.prisma.transaction.aggregate({
 				where: {
 					userId: ctx.session?.user.id,
-					subCategory: {
-						category: Category.SAVINGS,
-					},
+					category: Category.INCOME,
 					createdAt: {
 						lte: input.endDate,
 						gte: input.startDate,
@@ -76,7 +48,28 @@ export const totalsRouter = createTRPCRouter({
 					amount: true,
 				},
 			});
-
-			return result._sum.amount;
+		}),
+	// Sum of all income transactions
+	gross: protectedProcedure
+		.input(
+			z.object({
+				startDate: z.date(),
+				endDate: z.date(),
+			}),
+		)
+		.query(({ ctx, input }) => {
+			return ctx.prisma.transaction.aggregate({
+				where: {
+					userId: ctx.session?.user.id,
+					category: Category.INCOME,
+					createdAt: {
+						lte: input.endDate,
+						gte: input.startDate,
+					},
+				},
+				_sum: {
+					amount: true,
+				},
+			});
 		}),
 });
