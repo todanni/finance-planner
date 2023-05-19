@@ -1,4 +1,6 @@
 import { type NextPage } from 'next';
+import PayForm from '~/components/payments/PayForm';
+import { PaymentsTable } from '~/components/payments/Payments';
 import { DefaultLayout } from '~/layouts/DefaultLayout';
 
 const Plan: NextPage = () => {
