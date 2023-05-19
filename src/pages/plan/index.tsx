@@ -9,4 +9,24 @@ const Plan: NextPage = () => {
 	);
 };
 
+const getSelectedPanel = (tab: string, dateRange: DateTime) => {
+	const startDate = dateRange.startOf('month').toJSDate();
+	const endDate = dateRange.endOf('month').toJSDate();
+
+	switch (tab) {
+		case 'Overview':
+			return <OverviewPanel startDate={startDate} endDate={endDate} />;
+		case 'Income':
+			return <IncomePanel />;
+		case 'Spending':
+			return <SpendingPanel />;
+		case 'Savings':
+			return <SavingsPanel />;
+		case 'Debt':
+			return <DebtPanel />;
+		default:
+			return <OverviewPanel startDate={startDate} endDate={endDate} />;
+	}
+};
+
 export default Plan;

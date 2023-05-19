@@ -4,6 +4,7 @@ import { subcategoryRouter } from './routers/subcategory';
 import { categoriesRouter } from './routers/categories';
 import { balanceRouter } from './routers/balance';
 import { savingsRouter } from './routers/savings';
+import { totalsRouter } from './routers/totals';
 
 export const appRouter = createTRPCRouter({
 	transactions: transactionsRouter,
@@ -11,6 +12,7 @@ export const appRouter = createTRPCRouter({
 	category: categoriesRouter,
 	balance: balanceRouter,
 	savings: savingsRouter,
+	totals: totalsRouter,
 });
 
 export type AppRouter = typeof appRouter;

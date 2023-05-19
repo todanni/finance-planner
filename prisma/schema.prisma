@@ -66,6 +66,7 @@ model Transaction {
   createdAt DateTime @default(now()) //PaidOn 
   name      String
 
+  category Category @default(INCOME)
   subCategoryId Int
   subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
 
@@ -87,6 +88,8 @@ model Balance {
   name         String
   interestRate Float
   minPayment   Float @default(0)
+
+  category Category @default(INCOME)
 
   subCategoryId Int
   subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
