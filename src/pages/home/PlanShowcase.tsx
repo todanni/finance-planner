@@ -1,26 +1,24 @@
-import { PlanCard } from '@todanni/ui';
+import { DualToneCard, Heading } from '@todanni/ui';
 
 const PlanShowcase = () => {
 	return (
-		<PlanCard
-			section='savings'
-			contents={{
-				title: 'Monthly savings contributions',
-				totalPayments: 817.85,
-				sources: [
-					{
-						name: 'Help to buy ISA',
-						amount: 600.37,
-					},
-					{
-						name: 'Pension',
-						amount: 217.48,
-					},
-				],
-				totalBalance: 21081.49,
-				totalBalanceText: 'Total savings balance',
-			}}
-		/>
+		<DualToneCard fill='green' className='flex flex-col p-4'>
+			<Heading size='lg' className='inline-flex text-xl font-semibold'>
+				Monthly savings contributions <span className='ml-auto'>£817.85</span>
+			</Heading>
+			<Heading size='md' className='inline-flex text-lg'>
+				Pension contributions <span className='ml-auto'>£250.00</span>
+			</Heading>
+			<Heading size='md' className='inline-flex text-lg'>
+				Help to buy ISA <span className='ml-auto'>£600.37</span>
+			</Heading>
+			<Heading size='md' className='inline-flex text-lg'>
+				Stocks and Shares ISA <span className='ml-auto'>£310.95</span>
+			</Heading>
+			<Heading size='md' className='mt-auto inline-flex text-lg'>
+				Total savings balance <span className='ml-auto'>£21,081.49</span>
+			</Heading>
+		</DualToneCard>
 	);
 };
 
