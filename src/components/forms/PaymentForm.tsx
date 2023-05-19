@@ -19,29 +19,14 @@ const PaymentForm = ({ category }: PaymentFormProps) => {
 		category: category,
 	});
 
-	const ctx = api.useContext();
-
-	const { register, handleSubmit, reset } = useForm<PaymentFormInputs>({
+	const { register, handleSubmit } = useForm<PaymentFormInputs>({
 		defaultValues: {
 			subCategoryId: 1,
 		},
 	});
 
-	const transaction = api.transactions.create.useMutation({
-		onSuccess: () => {
-			reset();
-			void ctx.transactions.listByCategory.invalidate();
-			void ctx.transactions.listForSpending.invalidate();
-		},
-	});
-
 	const onSubmit: SubmitHandler<PaymentFormInputs> = (data) => {
-		transaction.mutate({
-			subCategoryId: data.subCategoryId,
-			amount: data.amount,
-			createdAt: data.paidOn,
-			name: data.name,
-		});
+		console.log(data);
 	};
 
 	return (
@@ -83,8 +68,8 @@ const PaymentForm = ({ category }: PaymentFormProps) => {
 				className='rounded-lg p-2 text-sm text-gray-800'
 			/>
 			<div className='mt-2 grid grid-cols-2 gap-2'>
-				<Button>Cancel</Button>
-				<Button type='submit'>Submit</Button>
+				<Button text={'Cancel'} />
+				<Button type='submit' text='Submit' />
 			</div>
 		</form>
 	);
