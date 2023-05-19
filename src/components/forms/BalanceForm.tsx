@@ -84,7 +84,7 @@ const BalanceForm = ({ category }: BalanceFormProps) => {
 				className='rounded-lg p-2 text-sm text-gray-800'
 			/>
 			<div className='mt-2 grid grid-cols-2 gap-2'>
-				<Button text={'Cancel'} />
+				<Button text='Cancel' />
 				<Button type='submit' text='Submit' />
 			</div>
 		</form>

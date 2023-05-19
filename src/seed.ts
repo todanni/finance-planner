@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
+// eslint-disable-next-line @typescript-eslint/require-await
 async function main() {
-	const category = await prisma.transaction.findMany({});
-	console.log(category);
+	console.log('Start seeding ...');
 }
 main()
 	.then(async () => {
