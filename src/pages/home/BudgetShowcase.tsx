@@ -1,4 +1,4 @@
-import { DonutChart } from '@todanni/ui';
+import { Card, DonutChart, Heading } from '@todanni/ui';
 
 const BudgetShowcase = () => {
 	const chartInputs = [
@@ -30,14 +30,14 @@ const BudgetShowcase = () => {
 	];
 
 	return (
-		<div className='grid grid-cols-3 rounded-xl border-2 border-gray-200 dark:border-white/5'>
+		<Card className='grid grid-cols-3'>
+			<Heading size='lg' className='col-span-3 text-center text-lg font-bold'>
+				Your budget
+			</Heading>
 			<div className='col-span-1'>
 				<DonutChart chartInputs={chartInputs} />
 			</div>
-			<div className='col-span-2 flex flex-col self-center p-4'>
-				<p className='text-md mb-2 text-end font-bold text-gray-600 dark:text-white'>
-					Your budget
-				</p>
+			<div className='col-span-2 flex flex-col justify-center gap-1 p-4'>
 				{chartInputs.map((input) => (
 					<div key={input.label} className='flex justify-between gap-2'>
 						<div className='flex items-center gap-2 '>
@@ -53,7 +53,7 @@ const BudgetShowcase = () => {
 					</div>
 				))}
 			</div>
-		</div>
+		</Card>
 	);
 };
 

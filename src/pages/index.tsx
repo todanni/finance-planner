@@ -1,5 +1,5 @@
 import { type NextPage } from 'next';
-import { LineChart, Section } from '@todanni/ui';
+import { Heading, LineChart, ResponsiveGrid, Title } from '@todanni/ui';
 import { HomePageLayout } from '~/layouts/HomePageLayout';
 import Hero from './home/Hero';
 import BudgetShowcase from './home/BudgetShowcase';
@@ -26,32 +26,43 @@ const Home: NextPage = () => {
 			description:
 				'The Finance Planner includes a dashboard where you can see track real time how much you have spent for the month, how your savings are performing.',
 		},
-	};
+	} as const;
 
 	return (
 		<HomePageLayout title='Finance Planner | ToDanni'>
-			<Hero />
-			<div className='mt-20 grid grid-cols-1 gap-x-8  gap-y-16 sm:grid-cols-2'>
-				<Section
-					title={sections.budgetSection.title}
-					subtitle={sections.budgetSection.subTitle}
-					description={sections.budgetSection.description}
-				/>
-				<BudgetShowcase />
-				<PlanShowcase />
-				<Section
-					title={sections.planSection.title}
-					subtitle={sections.planSection.subTitle}
-					description={sections.planSection.description}
-				/>
-				<Section
-					title={sections.trackSection.title}
-					subtitle={sections.trackSection.subTitle}
-					description={sections.trackSection.description}
-				/>
-				<LineChart />
+			<div className='flex flex-col gap-8'>
+				<Hero />
+				<ResponsiveGrid>
+					<Section {...sections.budgetSection} />
+					<BudgetShowcase />
+					<PlanShowcase />
+					<Section {...sections.planSection} />
+
+					<Section {...sections.trackSection} />
+					<LineChart />
+				</ResponsiveGrid>
 			</div>
 		</HomePageLayout>
+	);
+};
+
+type SectionProps = {
+	title: string;
+	subTitle: string;
+	description: string;
+};
+
+const Section = ({ title, subTitle, description }: SectionProps) => {
+	return (
+		<div className='my-4 flex flex-col gap-1 p-4'>
+			<Title>{title}</Title>
+			<Heading size='lg' className='text-lg font-bold'>
+				{subTitle}
+			</Heading>
+			<Heading className='text-md' size='md'>
+				{description}
+			</Heading>
+		</div>
 	);
 };
 

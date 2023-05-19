@@ -21,30 +21,12 @@ const BalanceForm = ({ category }: BalanceFormProps) => {
 		category: category,
 	});
 
-	const ctx = api.useContext();
-
-	const { register, handleSubmit, reset } = useForm<BalanceFormInputs>({
+	const { register, handleSubmit } = useForm<BalanceFormInputs>({
 		defaultValues: {},
 	});
 
-	const balance = api.balance.create.useMutation({
-		onSuccess: () => {
-			reset();
-			void ctx.balance.list.invalidate();
-		},
-	});
-
 	const onSubmit: SubmitHandler<BalanceFormInputs> = (data) => {
-		balance.mutate({
-			balance: {
-				name: data.name,
-				subCategoryId: data.subCategoryId,
-				interestRate: data.interestRate,
-				startDate: data.startDate,
-				endDate: data.endDate,
-			},
-			amount: data.amount,
-		});
+		console.log(data);
 	};
 
 	return (
@@ -102,8 +84,8 @@ const BalanceForm = ({ category }: BalanceFormProps) => {
 				className='rounded-lg p-2 text-sm text-gray-800'
 			/>
 			<div className='mt-2 grid grid-cols-2 gap-2'>
-				<Button>Cancel</Button>
-				<Button type='submit'>Submit</Button>
+				<Button text={'Cancel'} />
+				<Button type='submit' text='Submit' />
 			</div>
 		</form>
 	);
