@@ -1,39 +1,37 @@
+import { DateTime } from 'luxon';
+
 export type DateRange = {
 	firstDay: Date;
 	lastDay: Date;
 };
 
-const getCurrentMonthRange = () => {
-	const date = new Date();
-	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-	return {
-		firstDay: firstDay,
-		lastDay: lastDay,
-	};
+const getTaxYearRange = () => {
+	const startDate = DateTime.fromISO('2023-04-06').toJSDate();
+	const endDate = DateTime.fromISO('2024-04-05').toJSDate();
+	return { startDate, endDate };
 };
 
-const getPreviousMonthRange = () => {
-	const date = new Date();
-	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+const getCurrentMonthRange = () => {
+	const startDate = DateTime.now().startOf('month').toJSDate();
+	const endDate = DateTime.now().endOf('month').toJSDate();
+	return { startDate, endDate };
+};
 
-	return {
-		firstDay: firstDay,
-		lastDay: lastDay,
-	};
+const getCurrentMonthDates = () => {
+	const startDate = DateTime.now().startOf('month').toJSDate();
+	const endDate = DateTime.now().endOf('month').toJSDate();
+	return { startDate, endDate };
 };
 
 const getCurrentYearRange = () => {
-	const date = new Date();
-	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-	return {
-		firstDay: firstDay,
-		lastDay: lastDay,
-	};
+	const startDate = DateTime.now().startOf('year').toJSDate();
+	const endDate = DateTime.now().endOf('year').toJSDate();
+	return { startDate, endDate };
 };
 
-export { getCurrentMonthRange, getCurrentYearRange, getPreviousMonthRange };
+export {
+	getCurrentMonthRange,
+	getCurrentYearRange,
+	getTaxYearRange,
+	getCurrentMonthDates,
+};

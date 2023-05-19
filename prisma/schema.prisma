@@ -44,10 +44,12 @@ model User {
   emailVerified DateTime?
   image         String?
 
-  accounts     Account[]
-  sessions     Session[]
-  transactions Transaction[]
-  balances     Balance[]
+  accounts       Account[]
+  sessions       Session[]
+  transactions   Transaction[]
+  balances       Balance[]
+  balanceRecords BalanceRecord[]
+  goals          Goal[]
 }
 
 model VerificationToken {
@@ -64,14 +66,16 @@ model Transaction {
   createdAt DateTime @default(now()) //PaidOn 
   name      String
 
+  category      Category    @default(INCOME)
   subCategoryId Int
   subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
-  balance   Balance? @relation(fields: [balanceId], references: [id])
-  balanceId Int?
+  balance          Balance? @relation(fields: [balanceId], references: [id])
+  balanceId        Int?
+  isInitialBalance Boolean? @default(false)
 
   @@index([userId])
   @@index([balanceId])
@@ -83,8 +87,9 @@ model Balance {
   createdAt    DateTime @default(now())
   name         String
   interestRate Float
-  // minPayment  Float
+  minPayment   Float    @default(0)
 
+  category      Category    @default(INCOME)
   subCategoryId Int
   subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
 
@@ -95,19 +100,35 @@ model Balance {
   user   User   @relation(fields: [userId], references: [id])
 
   transactions Transaction[]
+  records      BalanceRecord[]
 
   @@index([userId])
   @@index([subCategoryId])
 }
 
+model BalanceRecord {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  amount    Float
+  balanceId Int
+  balance   Balance @relation(fields: [balanceId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@index([balanceId])
+  @@index([userId])
+}
+
 enum Category {
-  INCOME
-  BILL
-  DISCRETIONARY
-  LIVING_COSTS
-  DEBT
-  SAVINGS
-  TAX
+  INCOME //@map("Income")
+  BILL //@map("Bills")
+  DISCRETIONARY //@map("Discretionary")
+  LIVING_COSTS //@map("Living costs")
+  DEBT //@map("Debt")
+  SAVINGS //@map("Savings")
+  TAX //@map("Deductions")
 }
 
 model SubCategory {
@@ -118,4 +139,23 @@ model SubCategory {
 
   transactions Transaction[]
   balances     Balance[]
+  goals        Goal[]
+}
+
+model Goal {
+  id        Int      @id @default(autoincrement())
+  target    String
+  amount    Float
+  createdAt DateTime @default(now())
+  startDate DateTime
+  endDate   DateTime
+
+  subCategoryId Int
+  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([subCategoryId])
 }

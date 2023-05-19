@@ -1,14 +1,17 @@
 import { createTRPCRouter } from '~/server/api/trpc';
-import { transactionsRouter } from './routers/transactions';
 import { subcategoryRouter } from './routers/subcategory';
-import { categoriesRouter } from './routers/categories';
+// import { balanceRouter } from './routers/balanceOld';
+import { savingsRouter } from './routers/savings';
+import { incomeRouter } from './routers/income';
+import { txRouter } from './routers/tx';
 import { balanceRouter } from './routers/balance';
 
 export const appRouter = createTRPCRouter({
-	transactions: transactionsRouter,
 	subcategories: subcategoryRouter,
-	category: categoriesRouter,
 	balance: balanceRouter,
+	savings: savingsRouter,
+	income: incomeRouter,
+	tx: txRouter,
 });
 
 export type AppRouter = typeof appRouter;
