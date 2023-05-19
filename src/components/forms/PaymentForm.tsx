@@ -69,7 +69,7 @@ const PaymentForm = ({ category }: PaymentFormProps) => {
 			/>
 			<div className='mt-2 grid grid-cols-2 gap-2'>
 				<Button text='Cancel' />
-				<Button type='submit' text='Submit' />
+				<Button colour='savings' type='submit' text='Submit' />
 			</div>
 		</form>
 	);

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
-import { Category } from '@prisma/client';
+import { type Balance, Category, type Transaction } from '@prisma/client';
 import { DateTime } from 'luxon';
 import { TRPCError } from '@trpc/server';
 
@@ -107,6 +107,37 @@ export const balanceRouter = createTRPCRouter({
 			});
 		}),
 
+	// estimateTotalBalance: protectedProcedure
+	// 	.input(z.object({ endDate: z.date() }))
+	// 	.query(async ({ ctx, input }) => {
+	// 		// TODO: this is a very expensive procedure, we should cache the results
+	// 		// Find all balances for user
+	// 		// Get an estimated balance for each balance
+	// 		// Sum the estimated balances
+
+	// 		const balances = await ctx.prisma.balance.findMany({
+	// 			where: {
+	// 				userId: ctx.session?.user.id,
+	// 			},
+	// 			include: {
+	// 				subCategory: true,
+	// 				transactions: true,
+	// 			},
+	// 		});
+	// 		let totalBalance = 0;
+	// 		balances.forEach(async (balance) => {
+	// 			const initialBalance = await ctx.prisma.transaction.findFirst({
+	// 				where: {
+	// 					userId: ctx.session?.user.id,
+	// 					balanceId: input.balanceId,
+	// 					isInitialBalance: true,
+	// 				},
+	// 			});
+	// 		})
+
+	// 		return totalBalance;
+	// 	}),
+
 	estimatedBalance: protectedProcedure
 		.input(
 			z.object({
@@ -157,38 +188,69 @@ export const balanceRouter = createTRPCRouter({
 				},
 			});
 
-			let end = DateTime.fromJSDate(balance.startDate!);
-			let start = DateTime.fromJSDate(balance?.startDate!);
-			let daysSinceStart = end.diff(start, 'days').days;
-			let startingBalance = initialBalance.amount;
-			let interstAdded = 0;
-
-			payments.forEach((payment) => {
-				// repeat until no payments left with date < endDate
-				if (start < DateTime.fromJSDate(input.endDate)) {
-					// Calculate how many days since the start date of the balance
-					end = DateTime.fromJSDate(payment.createdAt);
-					daysSinceStart = end.diff(start, 'days').days;
-					// Calculate the interest added in that time
-					interstAdded =
-						(balance.interestRate / 36500) * daysSinceStart * startingBalance;
-					startingBalance = startingBalance + interstAdded;
-					// Subtract the payment from the balance
-					startingBalance = startingBalance - payment.amount;
-					// Set new start date to the payment date
-					start = DateTime.fromJSDate(payment.createdAt);
-				}
+			const estimate = estimateBalance({
+				...balance,
+				initial: initialBalance.amount,
+				currentDate: input.endDate,
+				payments: payments,
 			});
 
-			// if last payment date < endDate, and there are no payments left
-			// add interest
-			if (start < DateTime.fromJSDate(input.endDate)) {
-				end = DateTime.fromJSDate(input.endDate);
-				daysSinceStart = end.diff(start, 'days').days;
-				interstAdded = (balance.interestRate / 36500) * daysSinceStart;
-				startingBalance = startingBalance + interstAdded;
-			}
-
-			return startingBalance;
+			return estimate;
 		}),
 });
+
+type BalanceEstimateInputs = Balance & {
+	initial: number;
+	currentDate: Date;
+	payments: Transaction[];
+};
+
+type BalanceEstimate = {
+	totalPayments: number;
+	totalInterest: number;
+	estimate: number;
+	error: boolean;
+};
+
+const estimateBalance = ({ ...balance }: BalanceEstimateInputs) => {
+	let end = DateTime.now();
+	let start = DateTime.fromJSDate(balance.startDate!);
+	const dailyInterest = balance.interestRate / 36500;
+	let totalPayments = 0;
+	let totalInterest = 0;
+
+	balance.payments.forEach((payment) => {
+		if (balance.startDate! < balance.currentDate) {
+			end = DateTime.fromJSDate(payment.createdAt);
+			const daysSince = end.diff(start, 'days').days;
+
+			// Calculate interest and add to balance
+			const interestAdded = balance.initial * dailyInterest * daysSince;
+			balance.initial += interestAdded;
+			totalInterest += interestAdded;
+
+			// Subtract payment from balance
+			balance.initial -= payment.amount;
+			totalPayments += payment.amount;
+
+			start = DateTime.fromJSDate(payment.createdAt);
+		}
+	});
+
+	if (start < DateTime.fromJSDate(balance.currentDate)) {
+		end = DateTime.fromJSDate(balance.currentDate);
+		const daysSince = end.diff(start, 'days').days;
+		// const interstAdded = dailyInterest * daysSince;
+		const interstAdded = dailyInterest * daysSince * balance.initial;
+		balance.initial += +interstAdded;
+	}
+
+	// Fill the return object
+	const estimate: BalanceEstimate = {
+		estimate: balance.initial,
+		totalPayments: totalPayments,
+		totalInterest: totalInterest,
+		error: false,
+	};
+	return estimate;
+};
