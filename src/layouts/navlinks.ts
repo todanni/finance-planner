@@ -1,16 +1,13 @@
 export const navlinks = [
 	{
-		// location: 'plan',
+		location: 'budget',
+		name: 'Budget',
+	},
+	{
 		location: 'plan',
 		name: 'Plan',
 	},
 	{
-		// location: 'blog',
-		location: 'blog',
-		name: 'Blog',
-	},
-	{
-		// location: 'about',
 		location: 'about',
 		name: 'About',
 	},

@@ -25,4 +25,10 @@ const balanceSchema = z.object({
 	userId: z.string().default(''),
 });
 
-export { transactionSchema, balanceSchema };
+const budgetSchema = z.object({
+	category: z.string(),
+	amount: z.number(),
+	name: z.string(),
+});
+
+export { transactionSchema, balanceSchema, budgetSchema };

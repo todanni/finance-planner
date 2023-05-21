@@ -3,7 +3,7 @@ import { DefaultLayout } from '~/layouts/DefaultLayout';
 
 const Plan: NextPage = () => {
 	return (
-		<DefaultLayout>
+		<DefaultLayout currentLocation='plan'>
 			<div className='mt-4 rounded-xl'></div>
 		</DefaultLayout>
 	);
