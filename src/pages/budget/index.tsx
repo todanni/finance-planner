@@ -134,9 +134,6 @@ const BudgetForm = ({
 		const currentValue: BudgetSchema[] = JSON.parse(currentBudget);
 		currentValue.push(data);
 		localStorage.setItem('budget', JSON.stringify(currentValue));
-		// await navigator.storage.estimate().then((estimate) => {
-		// 	console.log(estimate);
-		// });
 		reset();
 		refresh();
 	};
@@ -178,16 +175,23 @@ const BudgetForm = ({
 const BudgetChart = ({ budgetItems }: BudgetOutputProps) => {
 	const getColour = (index: number) => {
 		const colours = [
-			'#4ADE80',
-			'#FBBF24',
-			'#F87171',
-			'#60A5FA',
-			'#818CF8',
-			'#2EBF63',
-			'#F3CC65',
-			'#EA3737',
-			'#2980EC',
-			'#4453EA',
+			'#fca5a5',
+			'#f87171',
+			'#ef4444',
+			'#fed7aa',
+			'#fdba74',
+			'#fb923c',
+			'#fde68a',
+			'#fcd34d',
+			'#86efac',
+			'#4ade80',
+			'#34d399',
+			'#67e8f9',
+			'#22d3ee',
+			'#a5b4fc',
+			'#818cf8',
+			'#f9a8d4',
+			'#f472b6',
 		];
 		return colours[index] || '#4ADE80';
 	};
@@ -238,12 +242,12 @@ const BudgetChart = ({ budgetItems }: BudgetOutputProps) => {
 			<DonutChart chartInputs={parseBudgetData()} />
 			<div className='flex flex-col gap-2'>
 				<p className='inline-flex font-bold text-white'>
-					Income left to spend:
-					<span className='ml-auto'>{remainingIncome()}</span>
-				</p>
-				<p className='inline-flex font-bold text-white'>
 					Minium monthly spending:
 					<span className='ml-auto'>{minSpending()}</span>
+				</p>
+				<p className='inline-flex font-bold text-white'>
+					Income left to spend:
+					<span className='ml-auto'>{remainingIncome()}</span>
 				</p>
 			</div>
 		</Card>
