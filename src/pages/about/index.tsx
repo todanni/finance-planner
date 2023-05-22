@@ -4,7 +4,7 @@ import { DefaultLayout } from '~/layouts/DefaultLayout';
 
 const Plan: NextPage = () => {
 	return (
-		<DefaultLayout currentLocation='plan'>
+		<DefaultLayout currentLocation='about'>
 			<DualToneCard fill='yellow' className='m-8 p-10'>
 				<p className='text-center text-lg font-bold text-white'>
 					This page is under construction

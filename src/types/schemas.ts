@@ -31,4 +31,6 @@ const budgetSchema = z.object({
 	name: z.string(),
 });
 
-export { transactionSchema, balanceSchema, budgetSchema };
+type BudgetSchema = z.infer<typeof budgetSchema>;
+
+export { transactionSchema, balanceSchema, budgetSchema, type BudgetSchema };

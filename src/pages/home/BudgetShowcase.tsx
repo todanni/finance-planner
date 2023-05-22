@@ -31,7 +31,9 @@ const BudgetShowcase = () => {
 
 	return (
 		<Card className='grid grid-cols-3'>
-			<Heading size='lg' className='col-span-3 text-center text-lg font-bold'>
+			<Heading
+				size='lg'
+				className='col-span-3 mt-2 text-center text-lg font-bold'>
 				Your budget
 			</Heading>
 			<div className='col-span-1'>

@@ -1,9 +1,16 @@
 import { type NextPage } from 'next';
-import { Heading, LineChart, ResponsiveGrid, Title } from '@todanni/ui';
+import {
+	Heading,
+	IconButton,
+	LineChart,
+	ResponsiveGrid,
+	Title,
+} from '@todanni/ui';
 import { HomePageLayout } from '~/layouts/HomePageLayout';
 import Hero from './home/Hero';
 import BudgetShowcase from './home/BudgetShowcase';
 import PlanShowcase from './home/PlanShowcase';
+import router from 'next/router';
 
 const Home: NextPage = () => {
 	const sections = {
@@ -33,11 +40,13 @@ const Home: NextPage = () => {
 			<div className='flex flex-col gap-8'>
 				<Hero />
 				<ResponsiveGrid>
-					<Section {...sections.budgetSection} />
+					<Section
+						{...sections.budgetSection}
+						button='Try out the budget feature'
+					/>
 					<BudgetShowcase />
 					<PlanShowcase />
 					<Section {...sections.planSection} />
-
 					<Section {...sections.trackSection} />
 					<LineChart />
 				</ResponsiveGrid>
@@ -50,11 +59,12 @@ type SectionProps = {
 	title: string;
 	subTitle: string;
 	description: string;
+	button?: string;
 };
 
-const Section = ({ title, subTitle, description }: SectionProps) => {
+const Section = ({ title, subTitle, description, button }: SectionProps) => {
 	return (
-		<div className='my-4 flex flex-col gap-1 p-4'>
+		<div className='my-4 flex h-full flex-col gap-1 p-4'>
 			<Title>{title}</Title>
 			<Heading size='lg' className='text-lg font-bold'>
 				{subTitle}
@@ -62,6 +72,16 @@ const Section = ({ title, subTitle, description }: SectionProps) => {
 			<Heading className='text-md' size='md'>
 				{description}
 			</Heading>
+			{button && (
+				<IconButton
+					size='sm'
+					fill='blue'
+					iconEnd='arrowRight'
+					text={button}
+					className='mt-4 w-fit'
+					onClick={() => void router.push('/budget')}
+				/>
+			)}
 		</div>
 	);
 };
