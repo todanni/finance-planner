@@ -11,6 +11,19 @@ const getCurrentMonthDates = () => {
 };
 
 export const txRouter = createTRPCRouter({
+	count: protectedProcedure.query(async ({ ctx }) => {
+		const sum = await ctx.prisma.transaction.aggregate({
+			where: {
+				userId: ctx.session?.user.id,
+			},
+			_count: {
+				amount: true,
+			},
+		});
+
+		return sum._count.amount;
+	}),
+
 	sumForCategory: protectedProcedure
 		.input(
 			z.object({

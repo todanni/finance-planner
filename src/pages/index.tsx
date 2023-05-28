@@ -7,10 +7,10 @@ import {
 	Title,
 } from '@todanni/ui';
 import { HomePageLayout } from '~/layouts/HomePageLayout';
-import Hero from './home/Hero';
-import BudgetShowcase from './home/BudgetShowcase';
-import PlanShowcase from './home/PlanShowcase';
 import router from 'next/router';
+import BudgetShowcase from '~/components/home/BudgetShowcase';
+import Hero from '~/components/home/Hero';
+import PlanShowcase from '~/components/home/PlanShowcase';
 
 const Home: NextPage = () => {
 	const sections = {
