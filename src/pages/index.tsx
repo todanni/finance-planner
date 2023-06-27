@@ -1,5 +1,6 @@
 import { type NextPage } from 'next';
 import {
+	Card,
 	Heading,
 	IconButton,
 	LineChart,
@@ -48,7 +49,9 @@ const Home: NextPage = () => {
 					<PlanShowcase />
 					<Section {...sections.planSection} />
 					<Section {...sections.trackSection} />
-					<LineChart />
+					<Card className='px-2 pt-4'>
+						<LineChart />
+					</Card>
 				</ResponsiveGrid>
 			</div>
 		</HomePageLayout>

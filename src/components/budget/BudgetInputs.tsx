@@ -19,24 +19,22 @@ export const BudgetInputs = ({ budgetItems, refresh }: BudgetOutputProps) => {
 			<div className='flex flex-col'>
 				<div className='flex items-center justify-between'>
 					<Icon object='arrowLeft' size='xs' />
-					<p className='text-sm text-white/60'>{`${budgetItems.length}/${budgetItems.length}`}</p>
+					<p className='text-sm '>{`${budgetItems.length}/${budgetItems.length}`}</p>
 					<Icon object='arrowRight' size='xs' />
 				</div>
 			</div>
 
 			{budgetItems.length === 0 && (
-				<p className='mt-4 text-center italic text-white/60'>
+				<p className='mt-4 text-center font-light italic'>
 					You will see a list of your inputs here...
 				</p>
 			)}
 			<div className='my-2 grid grid-cols-3 gap-1'>
 				{budgetItems?.map((item) => (
 					<>
-						<p className='text-white'>{_.capitalize(item.category)}</p>
-						<p className='text-white'>{_.capitalize(item.name)}</p>
-						<p className='text-right text-white'>
-							{formatCurrency(item.amount)}
-						</p>
+						<p className=''>{_.capitalize(item.category)}</p>
+						<p className=''>{_.capitalize(item.name)}</p>
+						<p className='text-right '>{formatCurrency(item.amount)}</p>
 					</>
 				))}
 			</div>

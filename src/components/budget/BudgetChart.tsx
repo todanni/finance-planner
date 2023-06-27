@@ -77,40 +77,41 @@ export const BudgetChart = ({ budgetItems }: BudgetOutputProps) => {
 			{budgetItems.length === 0 && (
 				<div className='flex flex-col text-center text-lg font-semibold'>
 					<Title size='small'>How to create your budget</Title>
-					<Heading size='lg' colour='white' className='mt-2'>
+					<Heading size='lg' className='mt-2'>
 						Income
 					</Heading>
-					<p className=' text-base font-light text-white/80'>
+					<p className='text-base font-light text-gray-600'>
 						Start by inputting your monthly income after tax.
 					</p>
-					<Heading size='lg' colour='white' className='mt-2'>
+					<Heading size='lg' className='mt-2'>
 						Needs
 					</Heading>
-					<p className='text-base font-light text-white/80'>
+					<p className='text-base font-light text-gray-600'>
 						Your needs are going to be calculated from your bills, groceries and
 						transport total costs.
 					</p>
-					<p className='font-semibolds mt-2 text-base text-white'>
+					<p className='font-semibolds mt-2 text-base text-gray-800'>
 						Be as specific as you want
 					</p>
-					<p className='mt-2 text-base font-light text-white/80'>
+					<p className='mt-2 text-base font-light text-gray-600'>
 						You can either input the total amount or enter each bill, grocery
 						shop and transport cost individually.
 					</p>
-					<Heading size='lg' colour='white' className='mt-2'>
+					<Heading size='lg' className='mt-2'>
 						Wants
 					</Heading>
-					<p className=' text-base font-light text-white/80'>
+
+					<p className=' text-base font-light text-gray-600'>
 						Your wants are the things you spend money on that are non-essential.
 					</p>
-					<p className=' text-base font-light text-white/80'>
+					<p className=' text-base font-light text-gray-600'>
 						Examples of wants are eating out, entertainment, shopping, beauty
 						procedures, etc.
 					</p>
-					<Heading size='lg' colour='white' className='mt-2'>
+					<Heading size='lg' className='mt-2'>
 						Debt
 					</Heading>
-					<p className=' text-base font-light text-white/80'>
+					<p className=' text-base font-light text-gray-600'>
 						If you have any debt (mortgage, credit cards, loans, etc.), input
 						the minimum monthly amount you need to pay in order to avoid
 						interest charges.
@@ -121,11 +122,11 @@ export const BudgetChart = ({ budgetItems }: BudgetOutputProps) => {
 				<div className='flex h-full flex-col justify-between gap-4'>
 					<DonutChart chartInputs={parseBudgetData()} />
 					<div className='flex flex-col gap-2'>
-						<p className='inline-flex font-bold text-white'>
+						<p className='inline-flex font-bold '>
 							Minium monthly spending:
 							<span className='ml-auto'>{minSpending()}</span>
 						</p>
-						<p className='inline-flex font-bold text-white'>
+						<p className='inline-flex font-bold '>
 							Income left to spend:
 							<span className='ml-auto'>{remainingIncome()}</span>
 						</p>

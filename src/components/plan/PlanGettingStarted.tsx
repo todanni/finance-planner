@@ -52,7 +52,7 @@ export const PlanGettingStarted = ({
 					<p className='inline-flex w-full justify-between text-sm font-semibold text-white'>
 						Total income after tax <span className='ml-auto'>£1,234.56</span>
 					</p>
-					<ProgressBar progress={75} fill='green' />
+					<ProgressBar progress={75} fill='green' withPercentage={false} />
 					<p className='inline-flex w-full justify-between text-sm font-light text-white/80'>
 						Income before tax: £1,234.56
 						<span className='ml-auto'>Total deductions: £1,234.56</span>
@@ -61,7 +61,7 @@ export const PlanGettingStarted = ({
 					<p className='mt-4 inline-flex w-full justify-between text-sm font-semibold text-white'>
 						Total monthly spending <span className='ml-auto'>£1,234.56</span>
 					</p>
-					<ProgressBar progress={50} fill='blue' />
+					<ProgressBar progress={50} fill='blue' withPercentage={false} />
 					<p className='inline-flex w-full justify-between text-sm font-light text-white/80'>
 						Needs: £617.28
 						<span className='ml-auto'>Wants: £617.28</span>
@@ -71,7 +71,7 @@ export const PlanGettingStarted = ({
 						Total savings contributions
 						<span className='ml-auto'>£1,234.56</span>
 					</p>
-					<ProgressBar progress={20} fill='yellow' />
+					<ProgressBar progress={20} fill='yellow' withPercentage={false} />
 					<p className='ml-auto text-sm font-light text-white/80'>
 						Interest earned: £123.56
 					</p>
@@ -80,7 +80,7 @@ export const PlanGettingStarted = ({
 						Total debt repayments
 						<span className='ml-auto'>£1,234.56</span>
 					</p>
-					<ProgressBar progress={15} fill='red' />
+					<ProgressBar progress={15} fill='red' withPercentage={false} />
 					<p className='ml-auto text-sm font-light text-white/80'>
 						Interest charged: £123.56
 					</p>

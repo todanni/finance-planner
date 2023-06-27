@@ -43,7 +43,6 @@ const budgetFormCategories = [
 
 const Budget: NextPage = () => {
 	const [budgetItems, setBudgetItems] = useState<BudgetSchema[]>([]);
-
 	const [refresh, setRefresh] = useState(false);
 
 	useEffect(() => {

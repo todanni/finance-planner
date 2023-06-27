@@ -41,10 +41,10 @@ export const BudgetForm = ({
 			className='grid grid-cols-3 gap-x-4 gap-y-1'
 			// eslint-disable-next-line @typescript-eslint/no-misused-promises
 			onSubmit={handleSubmit(onSubmit)}>
-			<label htmlFor={category + '-name'} className='text-white'>
+			<label htmlFor={category + '-name'} className='text-gray-700'>
 				{label}
 			</label>
-			<label htmlFor={category + '-amount'} className='text-white'></label>
+			<label htmlFor={category + '-amount'} className='text-gray-700'></label>
 			<div />
 			<TextInput
 				id={category + '-name'}
@@ -63,7 +63,7 @@ export const BudgetForm = ({
 				className='col-start-3 row-start-2'
 				type='submit'
 			/>
-			<p className='col-span-3 mt-1 text-sm italic text-white/60'>{helpText}</p>
+			<p className='col-span-3 mt-1 text-sm italic text-gray-500'>{helpText}</p>
 		</form>
 	);
 };

@@ -3,6 +3,7 @@ import { type NextPage } from 'next';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { PlanGettingStarted } from '~/components/plan/PlanGettingStarted';
+import { PlanOverviewPanel } from '~/components/plan/PlanOverviewPanel';
 import { DefaultLayout } from '~/layouts/DefaultLayout';
 import { api } from '~/utils/api';
 
@@ -47,9 +48,17 @@ const Plan: NextPage = () => {
 						onClick={() => setSelectedTab('Income')}
 					/>
 				)}
+				{userData && sessionData && getPlanPanel(selectedTab)}
 			</div>
 		</DefaultLayout>
 	);
+};
+
+const getPlanPanel = (tab: string) => {
+	switch (tab) {
+		default:
+			return <PlanOverviewPanel />;
+	}
 };
 
 export default Plan;

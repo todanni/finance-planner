@@ -24,6 +24,40 @@ export const txRouter = createTRPCRouter({
 		return sum._count.amount;
 	}),
 
+	total: protectedProcedure
+		.input(
+			z.object({
+				startDate: z.date().default(getCurrentMonthDates().startDate),
+				endDate: z.date().default(getCurrentMonthDates().endDate),
+			}),
+		)
+		.query(async ({ ctx, input }) => {
+			const total = await ctx.prisma.transaction.groupBy({
+				by: ['category'],
+				where: {
+					userId: ctx.session?.user.id,
+					createdAt: {
+						lte: input.endDate,
+						gte: input.startDate,
+					},
+				},
+				_sum: {
+					amount: true,
+				},
+			});
+			const response = Object.fromEntries(
+				total.map((t) => [
+					t.category,
+					{
+						total: t._sum.amount,
+						percentage: 0,
+					},
+				]),
+			);
+
+			return response;
+		}),
+
 	sumForCategory: protectedProcedure
 		.input(
 			z.object({
