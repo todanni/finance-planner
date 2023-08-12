@@ -1,4 +1,4 @@
-<!-- MARKDOWN LINKS & IMAGES -->
+<!-- MARKDOWN LINKS & IMAGES included -->
 [repo-url]: https://github.com/todanni/finance-planner
 
 <!-- PROJECT LOGO -->
